@@ -1,218 +1,124 @@
-# Laboratorio: Fundamentos de Sistemas de Archivos y Terminal Linux
+# Laboratorio: Administración de Servidores Linux
 
-## Descripción
+> Curso interactivo de 11 unidades con retos prácticos, evaluación automática y modo tutorial. Ejecutado en Docker.
 
-Laboratorio interactivo para aprender fundamentos de administración de sistemas de archivos y comandos de terminal en Linux. El laboratorio se ejecuta en un contenedor Docker con un entorno de pruebas automatizado.
-
-**Características principales:**
-- 5 retos guiados con instrucciones paso a paso
-- Validación automática de cada reto
-- Frase oculta que se revela al completar todos los retos
-- Generación automática de evidencia de finalización
-
-## Prerrequisitos
-
-- Docker instalado en tu sistema
-- Docker Compose (incluido en Docker Desktop)
-- Terminal o línea de comandos
-
-## Inicio Rápido
-
-### 1. Clonar o descargar el repositorio
+## Inicio rápido
 
 ```bash
-# Si usas git
 git clone <url-del-repositorio>
-cd lab-filesystem-bash
-
-# O simplemente navega al directorio del laboratorio
-cd /Users/statick/prueba/lab
-```
-
-### 2. Construir la imagen Docker
-
-```bash
-docker compose build
-```
-
-### 3. Levantar el contenedor
-
-```bash
-docker compose up -d
-```
-
-### 4. Entrar al contenedor
-
-```bash
+cd lab
+docker compose up -d --build
 docker compose exec lab-linux bash
 ```
 
-### 5. ¡Comenzar el laboratorio!
+Una vez dentro del contenedor, verás el banner de bienvenida y los comandos disponibles.
 
-Una vez dentro del contenedor, verás un banner de bienvenida con los comandos disponibles.
+## Qué incluye
 
-## Comandos Disponibles (Dentro del Contenedor)
+| Unidad | Tema | Habilidades |
+|--------|------|-------------|
+| I | Fundamentos de Linux | Navegación FHS, WSL2, comandos esenciales |
+| II | Gestión de paquetes | apt, dpkg, repositorios |
+| III | Shell y scripting | Bash, variables, condicionales, bucles |
+| IV | Usuarios y permisos | useradd, chmod, chown, sudo |
+| V | Procesos y servicios | ps, top, systemctl, cron |
+| VI | Almacenamiento | df, du, mount, LVM, particiones |
+| VII | Seguridad básica | SSH, firewalls, CIS benchmarks |
+| VIII | Docker | Contenedores, imágenes, Docker-in-Docker |
+| IX | Servidor web | Nginx, VirtualHosts, proxy reverso |
+| X | SSL/TLS | Certificados, Let's Encrypt, staging |
+| XI | Backup y recuperación | rsync, cron, Docker Compose, bases de datos |
 
-| Comando | Descripción |
-|---------|-------------|
-| `evaluar` | Ejecuta las pruebas de validación y muestra tu puntaje |
-| `lab` | Navega al directorio del laboratorio (`~/laboratorio`) |
-| `retos` | Muestra las instrucciones y retos del laboratorio |
-| `revelar-frase` | Muestra la frase oculta cuando todos los retos están completados |
-| `generar-respuestas` | Genera tu archivo de respuestas como evidencia de finalización |
+## Comandos disponibles (dentro del contenedor)
 
-## Retos del Laboratorio
+| Comando | Qué hace |
+|---------|----------|
+| `menu` | Menú interactivo con rutas de aprendizaje por unidad |
+| `evaluar` | Ejecuta validación automática y muestra puntaje |
+| `retos` | Muestra retos y pistas de la unidad actual |
+| `lab` | Navega al directorio de trabajo |
+| `revelar-frase` | Revela la frase oculta al completar retos |
+| `generar-respuestas` | Genera archivo de evidencia |
 
-### Reto 1: Navegación
-- Crea el directorio `/tmp/backup`
-- Demuestra que puedes navegar entre directorios
-- **Palabra oculta:** Se revela al completar
+## Estructura del proyecto
 
-### Reto 2: Creación de Directorios y Estructura
-- Crea la estructura `~/laboratorio/proyectos/web/html`
-- Crea la estructura `~/laboratorio/proyectos/web/css`
-- Demuestra uso de `mkdir -p`
-- **Palabra oculta:** Se revela al completar
-
-### Reto 3: Creación y Edición de Archivos
-- Crea `index.html` en `proyectos/web/html/` con contenido HTML específico
-- Crea `main.css` en `proyectos/web/css/` con estilos CSS específicos
-- Demuestra uso de editores (`nano`, `vim`) o redirección
-- **Palabra oculta:** Se revela al completar
-
-### Reto 4: Copia y Movimiento
-- Copia `index.html` a `~/laboratorio/proyectos/web/index.bak`
-- Renombra `styles.css` a `main.css`
-- Demuestra uso de `cp`, `mv`
-- **Palabra oculta:** Se revela al completar
-
-### Reto 5: Eliminación Limpia
-- Elimina el directorio `temp_dir` y su contenido
-- Demuestra uso de `rm -r`
-- **Frase completa:** Se revela la frase oculta completa
-
-## Frase Oculta
-
-Al completar cada reto, se revela una palabra. Al completar los 5 retos, se desoculta la frase completa:
-
-| Reto | Palabra |
-|------|---------|
-| 1 | ??? |
-| 2 | ??? |
-| 3 | ??? |
-| 4 | ??? |
-| 5 | **Frase completa** |
-
-Usa `revelar-frase` para ver tu progreso.
-
-## Generación de Evidencia
-
-Una vez completados todos los retos:
-
-```bash
-# Genera tu archivo de respuestas
-generar-respuestas
-
-# El archivo se guarda como ~/laboratorio/respuestas-YYYY-MM-DD-HH-MM-SS.md
-# Cópialo a tu máquina host:
-docker cp lab-linux:/home/estudiante/laboratorio/respuestas-*.md .
+```
+lab/
+├── shared/                 # Librería compartida
+│   ├── colors.sh           # Colores y formato
+│   ├── eval.sh             # Funciones de evaluación
+│   ├── menu.sh             # Menú interactivo
+│   ├── banner.sh           # Banners ASCII
+│   └── common.sh           # Inicialización base
+├── units/
+│   ├── ii/                 # Unidad II: Paquetes
+│   │   ├── setup.sh        # Instalación
+│   │   ├── test.sh         # Validación
+│   │   └── manual.sh       # Tutorial paso a paso
+│   ├── iii/                # Unidad III: Shell
+│   ├── iv/                 # Unidad IV: Usuarios
+│   ├── v/                  # Unidad V: Procesos
+│   ├── vi/                 # Unidad VI: Almacenamiento
+│   ├── vii/                # Unidad VII: Seguridad
+│   ├── viii/               # Unidad VIII: Docker
+│   ├── ix/                 # Unidad IX: Web
+│   ├── x/                  # Unidad X: SSL
+│   └── xi/                 # Unidad XI: Backup
+├── Dockerfile              # Imagen Ubuntu 24.04
+├── docker-compose.yml      # Orquestación
+├── entrypoint.sh           # Punto de entrada
+├── test.sh                 # Validación Unidad I
+├── manual.sh               # Tutorial Unidad I
+├── propuesta-pedagogica.md # Propuesta pedagógica completa
+├── plantilla.md            # Plantilla de respuestas
+└── README.md               # Este archivo
 ```
 
-## Plantilla de Respuestas
+## Prerrequisitos
 
-El archivo `plantilla.md` se proporciona dentro del contenedor para que registres tus respuestas durante el laboratorio. Puedes editarlo directamente:
-
-```bash
-# Dentro del contenedor
-nano ~/laboratorio/plantilla.md
-```
+- Docker instalado
+- Docker Compose (incluido en Docker Desktop)
+- Terminal o línea de comandos
 
 ## Validación
 
-El script `test.sh` valida automáticamente que todos los retos se hayan completado correctamente. Al ejecutar `evaluar`, verás:
-
-- **✓ PASS** - Reto completado exitosamente
-- **✗ FAIL** - Reto no completado o con errores
-- **Puntaje final** - Resumen de progreso
-
-### Ejemplo de salida:
+Cada unidad tiene su propio `test.sh` con validación automática:
 
 ```
-  [RETO 1] Navegación: /tmp, backup, ~
-    ✓ /tmp/backup existe y es un directorio
-  ✓ PASS  Reto 1: Navegación
-
-  [RETO 2] Creación de Directorios y Estructura
-    ✓ ~/laboratorio/proyectos/web/html existe
-    ✓ ~/laboratorio/proyectos/web/css existe
-  ✓ PASS  Reto 2: Creación de Directorios
-
-  ...
-
-  RESULTADO FINAL:
-
-  Retos completados: 5 / 5
-  Porcentaje: 100%
-
-  [████████████████████████████]
-
-  🎉 ¡FELICIDADES! ¡Todos los retos completados exitosamente!
-
-  📝 Frase oculta: EL CONOCIMIENTO ES PODER
+✓ PASS  — Reto completado
+✗ FAIL  — Reto no completado o con errores
 ```
 
-## Estructura del Repositorio
+Ejecuta `evaluar` para ver tu progreso general.
 
-```
-lab-filesystem-bash/
-├── Dockerfile          # Configuración del contenedor
-├── docker-compose.yml  # Orquestación del servicio
-├── entrypoint.sh       # Punto de entrada del contenedor
-├── test.sh             # Script de validación de retos
-├── manual.sh           # Script interactivo con retos guiados
-├── revelar-frase.sh    # Revela la frase oculta
-├── generar-respuestas.sh # Genera evidencia de finalización
-├── plantilla.md        # Plantilla para respuestas del estudiante
-├── .env                # Variables de entorno (opcional)
-└── README.md           # Este archivo
-```
+## Solución de problemas
 
-## Solución de Problemas
-
-### El contenedor no inicia
+**El contenedor no inicia:**
 ```bash
-# Verificar logs
 docker compose logs lab-linux
-
-# Reconstruir la imagen
-docker compose build --no-cache
-docker compose up -d
+docker compose build --no-cache && docker compose up -d
 ```
 
-### Los comandos `evaluar` o `lab` no funcionan
-- Asegúrate de estar dentro del contenedor con `docker compose exec lab-linux bash`
-- Los aliases se configuran automáticamente al iniciar el contenedor
+**Los comandos no funcionan:**
+- Verifica que estés dentro del contenedor: `docker compose exec lab-linux bash`
+- Los aliases se configuran automáticamente al iniciar
 
-### Las pruebas fallan aunque completé los retos
-- Verifica que estés en el directorio correcto (`~/laboratorio`)
-- Revisa que los nombres de archivos y directorios coincidan exactamente con las especificaciones
-- Ejecuta `evaluar` nuevamente para ver los detalles
-
-## Personalización
-
-### Cambiar el editor predeterminado
-Edita el archivo `.env` y modifica `DEFAULT_EDITOR`:
-```
-DEFAULT_EDITOR=vim  # o nano, code, etc.
-```
-
-### Agregar herramientas adicionales
-Edita el `Dockerfile` y agrega paquetes en la sección `apt-get install`.
+**Las pruebas fallan:**
+- Verifica que estés en `~/laboratorio`
+- Los nombres deben coincidir exactamente con las especificaciones
 
 ## Licencia
 
-Este laboratorio es para uso educativo. Puedes modificarlo y distribuirlo libremente en contextos académicos.
+Uso educativo. Puedes modificarlo y distribuirlo libremente en contextos académicos.
+
+---
 
 ## Autor
 
-Desarrollado para el curso de Fundamentos de Sistemas Operativos y Administración de Servidores en Red.
+**Lic. Diego Medardo Saavedra García, Mg. Sc.**
+
+- 🌐 [statick88.github.io](https://statick88.github.io)
+- 📧 dsaavedra88@gmail.com
+- 📱 +593 98 019 2790
+
+Desarrollado para el curso de **Fundamentos de Sistemas Operativos y Administración de Servidores en Red**.

@@ -1,7 +1,7 @@
 ---
 title: "Propuesta Pedagógica — Administración de Servidores Linux"
 subtitle: "Curso interactivo con retos prácticos, evaluación automática y modo tutorial"
-author: "Diego Saavedra García"
+author: "Lic. Diego Medardo Saavedra García, Mg. Sc."
 date: today
 format:
   html:
