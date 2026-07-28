@@ -1,0 +1,36 @@
+# SDD / Spec-Driven Development
+openspec/
+openspec/**
+.sdd/
+.sdd/**
+
+# Engram persistent memory
+engram/
+engram/**
+*.engram.*
+
+# Agent configuration
+.claude/
+.atl/
+.opencode/
+.gentle-ai/
+.gga
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/

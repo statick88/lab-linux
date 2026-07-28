@@ -1,0 +1,29 @@
+# =============================================================================
+# Docker Compose - Laboratorio Linux
+# =============================================================================
+# Levanta el contenedor interactivo del laboratorio.
+#
+# Uso:
+#   docker compose up -d          # Levantar en segundo plano
+#   docker compose exec lab-linux bash  # Entrar al contenedor
+#   docker compose down           # Detener y eliminar
+# =============================================================================
+
+services:
+  lab-linux:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mi-lab-linux
+    stdin_open: true    # Mantener stdin abierto (-i)
+    tty: true           # Asignar pseudo-TTY (-t)
+    volumes:
+      - lab-data:/home/estudiante/laboratorio
+    environment:
+      - LAB_NAME=Fundamentos de Sistemas de Archivos
+      - STUDENT_USER=estudiante
+    restart: unless-stopped
+
+volumes:
+  lab-data:
+    driver: local
