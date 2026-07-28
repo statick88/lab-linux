@@ -17,8 +17,10 @@ services:
     container_name: mi-lab-linux
     stdin_open: true    # Mantener stdin abierto (-i)
     tty: true           # Asignar pseudo-TTY (-t)
+    privileged: true
     volumes:
       - lab-data:/home/estudiante/laboratorio
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - LAB_NAME=Fundamentos de Linux
       - STUDENT_USER=estudiante

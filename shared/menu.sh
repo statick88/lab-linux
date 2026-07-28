@@ -6,7 +6,7 @@ UNIDADES=("Unit I: Introduccion" "Unit II: Servicios de Red" "Unit III: Segurida
           "Unit VII: Procesos y Servicios" "Unit VIII: Docker" "Unit IX: Networking"
           "Unit X: Logs y Auditoria" "Unit XI: Seguridad Avanzada")
 ICONOS=("🖥️" "🌐" "🔒" "👥" "💾" "📦" "🔧" "🐳" "🌐" "📋" "🛡️")
-RETOS_POR_UNIDAD=(10 10 10 10 10 8 10 10 10 10 10)
+RETOS_POR_UNIDAD=(10 10 10 10 10 10 10 10 10 10 10)
 
 mostrar_menu_principal() {
     clear; echo ""
