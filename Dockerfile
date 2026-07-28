@@ -25,6 +25,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     git \
     sudo \
+    openssl \
+    nginx \
+    rsync \
+    ufw \
+    openssh-client \
+    cron \
+    procps \
+    net-tools \
+    iproute2 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -43,11 +52,19 @@ COPY manual.sh /manual.sh
 COPY revelar-frase.sh /revelar-frase.sh
 COPY generar-respuestas.sh /generar-respuestas.sh
 
+# Copiar biblioteca compartida
+COPY shared/ /shared/
+
+# Copiar unidades del curso
+COPY units/ /home/estudiante/laboratorio/units/
+
 # Copiar plantilla de respuestas
 COPY plantilla.md /home/estudiante/laboratorio/plantilla.md
 
 # Establecer permisos de ejecución
-RUN chmod +x /entrypoint.sh /test.sh /manual.sh /revelar-frase.sh /generar-respuestas.sh
+RUN chmod +x /entrypoint.sh /test.sh /manual.sh /revelar-frase.sh /generar-respuestas.sh && \
+    chmod +x /shared/*.sh && \
+    find /home/estudiante/laboratorio/units -name "*.sh" -exec chmod +x {} \;
 
 # Cambiar al usuario 'estudiante'
 USER estudiante

@@ -20,8 +20,10 @@ services:
     volumes:
       - lab-data:/home/estudiante/laboratorio
     environment:
-      - LAB_NAME=Fundamentos de Sistemas de Archivos
+      - LAB_NAME=Fundamentos de Linux
       - STUDENT_USER=estudiante
+      - STUDENT_PASS=lab123
+      - FRASE_OCULTA=Toda revolution comienza con un pass Los administradores nunca duermen !
     restart: unless-stopped
 
 volumes:

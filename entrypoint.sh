@@ -4,17 +4,10 @@
 # =============================================================================
 # Crea alias persistentes, muestra manual interactivo y mantiene
 # la terminal interactiva abierta para el estudiante.
-# =============================================================================
+# ============================================================================
 
-# Colores ANSI
-ROJO='\033[0;31m'
-VERDE='\033[0;32m'
-AMARILLO='\033[1;33m'
-AZUL='\033[0;34m'
-MAGENTA='\033[0;35m'
-CYAN='\033[0;36m'
-BLANCO='\033[1;37m'
-SIN_COLOR='\033[0m'
+# Cargar biblioteca compartida
+source /shared/common.sh
 
 # ─── Detectar primer inicio y limpiar progreso anterior ──────────────────────
 # Si existe el volume pero no hay marker de inicialización, limpiar retos previos
@@ -22,6 +15,7 @@ MARKER="$HOME/.lab_initialized"
 if [ ! -f "$MARKER" ]; then
     rm -f "$HOME/laboratorio/.reto"_completado 2>/dev/null
     rm -f "$HOME/laboratorio/.reto"*"_completado" 2>/dev/null
+    rm -f "/shared/.state/progress" 2>/dev/null
     touch "$MARKER"
 fi
 
@@ -119,27 +113,8 @@ if [ -f "/manual.sh" ]; then
     bash /manual.sh
 else
     # Fallback: mostrar banner si manual.sh no existe
-    clear
-    echo -e "${CYAN}"
-    echo "╔══════════════════════════════════════════════════════════════════╗"
-    echo "║                                                                ║"
-    echo "║   ██╗      █████╗ ██████╗  ██████╗ ███╗   ██╗                  ║"
-    echo "║   ██║     ██╔══██╗██╔══██╗██╔═══██╗████╗  ██║                  ║"
-    echo "║   ██║     ███████║██████╔╝██║   ██║██╔██╗ ██║                  ║"
-    echo "║   ██║     ██╔══██║██╔══██╗██║   ██║██║╚██╗██║                  ║"
-    echo "║   ███████╗██║  ██║██████╔╝╚██████╔╝██║ ╚████║                  ║"
-    echo "║   ╚══════╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═╝  ╚═══╝                  ║"
-    echo "║                                                                ║"
-    echo "║   ███████╗███████╗ ██████╗██╗   ██╗██████╗ ███████╗███████╗   ║"
-    echo "║   ██╔════╝██╔════╝██╔════╝██║   ██║██╔══██╗██╔════╝██╔════╝   ║"
-    echo "║   ███████╗█████╗  ██║     ██║   ██║██████╔╝█████╗  ███████╗   ║"
-    echo "║   ╚════██║██╔══╝  ██║     ██║   ██║██╔═══╝ ██╔══╝  ╚════██║   ║"
-    echo "║   ███████║███████╗╚██████╗╚██████╔╝██║     ███████╗███████║   ║"
-    echo "║   ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚══════╝╚══════╝   ║"
-    echo "║                                                                ║"
-    echo "╚══════════════════════════════════════════════════════════════════╝"
-    echo -e "${SIN_COLOR}"
-    echo -e "${AMARILLO}  BIENVENIDO. Escribe 'manual' para ver las instrucciones.${SIN_COLOR}"
+    banner_bienvenida
+    echo -e "${AMARILLO}  BIENVENIDO. Escribe 'manual' para ver las instrucciones.${RESET}"
     echo ""
 fi
 
