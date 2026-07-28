@@ -43,11 +43,15 @@ COPY manual.sh /manual.sh
 COPY revelar-frase.sh /revelar-frase.sh
 COPY generar-respuestas.sh /generar-respuestas.sh
 
+# Copiar biblioteca compartida
+COPY shared/ /shared/
+
 # Copiar plantilla de respuestas
 COPY plantilla.md /home/estudiante/laboratorio/plantilla.md
 
 # Establecer permisos de ejecución
-RUN chmod +x /entrypoint.sh /test.sh /manual.sh /revelar-frase.sh /generar-respuestas.sh
+RUN chmod +x /entrypoint.sh /test.sh /manual.sh /revelar-frase.sh /generar-respuestas.sh && \
+    chmod +x /shared/*.sh
 
 # Cambiar al usuario 'estudiante'
 USER estudiante
