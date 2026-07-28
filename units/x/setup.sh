@@ -7,7 +7,7 @@ source /shared/common.sh
 
 UNIT_NAME="unit-X"
 UNIT_NUM=10
-TOTAL_RETOS=10
+export TOTAL_RETOS=10
 
 banner_unidad "$UNIT_NUM" "Certificados SSL/TLS"
 

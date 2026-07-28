@@ -41,10 +41,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN useradd -m -s /bin/bash estudiante && \
     echo "estudiante ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
-# Crear directorio de laboratorio
-RUN mkdir -p /home/estudiante/laboratorio && \
-    chown -R estudiante:estudiante /home/estudiante
-
 # Copiar scripts al contenedor
 COPY entrypoint.sh /entrypoint.sh
 COPY test.sh /test.sh
@@ -55,8 +51,8 @@ COPY generar-respuestas.sh /generar-respuestas.sh
 # Copiar biblioteca compartida
 COPY shared/ /shared/
 
-# Copiar unidades del curso
-COPY units/ /home/estudiante/laboratorio/units/
+# Copiar unidades del curso a /opt (fuera del volume mount)
+COPY units/ /opt/lab-units/
 
 # Copiar plantilla de respuestas
 COPY plantilla.md /home/estudiante/laboratorio/plantilla.md
@@ -64,7 +60,7 @@ COPY plantilla.md /home/estudiante/laboratorio/plantilla.md
 # Establecer permisos de ejecución
 RUN chmod +x /entrypoint.sh /test.sh /manual.sh /revelar-frase.sh /generar-respuestas.sh && \
     chmod +x /shared/*.sh && \
-    find /home/estudiante/laboratorio/units -name "*.sh" -exec chmod +x {} \;
+    find /opt/lab-units -name "*.sh" -exec chmod +x {} \;
 
 # Cambiar al usuario 'estudiante'
 USER estudiante

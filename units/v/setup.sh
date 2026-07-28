@@ -7,7 +7,7 @@ source /shared/common.sh
 
 UNIT_NAME="unit-V"
 UNIT_NUM=5
-TOTAL_RETOS=10
+export TOTAL_RETOS=10
 
 banner_unidad "$UNIT_NUM" "Procesos y Servicios"
 

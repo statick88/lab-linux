@@ -7,7 +7,7 @@ source /shared/common.sh
 
 UNIT_NAME="unit-VII"
 UNIT_NUM=7
-TOTAL_RETOS=10
+export TOTAL_RETOS=10
 
 banner_unidad "$UNIT_NUM" "Seguridad del Sistema"
 

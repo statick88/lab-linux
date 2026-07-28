@@ -7,7 +7,7 @@ source /shared/common.sh
 
 UNIT_NAME="unit-IV"
 UNIT_NUM=4
-TOTAL_RETOS=10
+export TOTAL_RETOS=10
 
 banner_unidad "$UNIT_NUM" "Gestion de Usuarios"
 

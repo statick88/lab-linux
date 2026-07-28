@@ -7,7 +7,7 @@ source /shared/common.sh
 
 UNIT_NAME="unit-XI"
 UNIT_NUM=11
-TOTAL_RETOS=10
+export TOTAL_RETOS=10
 
 banner_unidad "$UNIT_NUM" "Respaldo y Recuperacion"
 

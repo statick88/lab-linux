@@ -7,7 +7,7 @@ source /shared/common.sh
 
 UNIT_NAME="unit-VI"
 UNIT_NUM=6
-TOTAL_RETOS=10
+export TOTAL_RETOS=10
 
 banner_unidad "$UNIT_NUM" "Gestion de Almacenamiento"
 

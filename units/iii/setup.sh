@@ -7,7 +7,7 @@ source /shared/common.sh
 
 UNIT_NAME="unit-III"
 UNIT_NUM=3
-TOTAL_RETOS=10
+export TOTAL_RETOS=10
 
 banner_unidad "$UNIT_NUM" "Scripting en Shell"
 

@@ -7,6 +7,7 @@ source /shared/common.sh
 
 UNIT_NAME="unit-X"
 TOTAL_RETOS=10
+TOTAL_RETOS=10
 
 reto1() {
     openssl version 2>/dev/null | grep -q "OpenSSL"

@@ -6,6 +6,7 @@ set -e
 source /shared/common.sh
 
 UNIT_NAME="unit-II"
+TOTAL_RETOS=10
 INITIAL_PACKAGE_COUNT=$(dpkg -l | grep "^ii" | wc -l)
 
 reto1() {

@@ -7,7 +7,7 @@ source /shared/common.sh
 
 UNIT_NAME="unit-IX"
 UNIT_NUM=9
-TOTAL_RETOS=10
+export TOTAL_RETOS=10
 
 banner_unidad "$UNIT_NUM" "Servidor Web"
 

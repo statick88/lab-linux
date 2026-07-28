@@ -1,6 +1,7 @@
 #!/bin/bash
 # Funciones de evaluacion y progreso
-STATE_DIR="/shared/.state"
+# Usa directorio en home del usuario para evitar problemas de permisos
+STATE_DIR="${HOME}/.lab_state"
 PROGRESS_FILE="${STATE_DIR}/progress"
 
 init_state() { mkdir -p "$STATE_DIR"; touch "$PROGRESS_FILE" 2>/dev/null; }

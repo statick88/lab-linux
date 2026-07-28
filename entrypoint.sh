@@ -2,15 +2,24 @@
 # =============================================================================
 # entrypoint.sh - Punto de entrada del contenedor del laboratorio
 # =============================================================================
-# Crea alias persistentes, muestra manual interactivo y mantiene
+# Configura aliases, muestra manual interactivo y mantiene
 # la terminal interactiva abierta para el estudiante.
+# Soporta tanto el sistema legacy (10 retos) como el nuevo (11 unidades x 10 retos).
 # ============================================================================
 
 # Cargar biblioteca compartida
 source /shared/common.sh
 
+# ─── Copiar unidades desde /opt si no existen (primera ejecución) ─────────────
+UNITS_MARKER="$HOME/.units_copied"
+if [ ! -f "$UNITS_MARKER" ]; then
+    info "Copiando unidades del curso al directorio de trabajo..."
+    mkdir -p "$HOME/laboratorio/units"
+    cp -r /opt/lab-units/* "$HOME/laboratorio/units/" 2>/dev/null || true
+    touch "$UNITS_MARKER"
+fi
+
 # ─── Detectar primer inicio y limpiar progreso anterior ──────────────────────
-# Si existe el volume pero no hay marker de inicialización, limpiar retos previos
 MARKER="$HOME/.lab_initialized"
 if [ ! -f "$MARKER" ]; then
     rm -f "$HOME/laboratorio/.reto"_completado 2>/dev/null
@@ -19,19 +28,25 @@ if [ ! -f "$MARKER" ]; then
     touch "$MARKER"
 fi
 
-# Crear alias persistentes en ~/.bash_aliases ( ~/.bashrc lo carga automáticamente )
+# ─── Aliases persistentes ───────────────────────────────────────────────────
 if [ ! -f ~/.bash_aliases ] || ! grep -q "alias evaluar=" ~/.bash_aliases 2>/dev/null; then
     cat > ~/.bash_aliases <<'EOF'
+# Legacy system (10 retos)
 alias evaluar='/test.sh'
 alias retos='cat ~/laboratorio/README.md'
 alias manual='bash /manual.sh'
 alias borrar-retos='bash /manual.sh --borrar-retos'
 alias revelar-frase='bash /revelar-frase.sh'
 alias generar-respuestas='bash /generar-respuestas.sh'
+
+# New 11-unit system
+alias unidad='bash /shared/unidad.sh'
+alias retos-unidad='bash /shared/retos-unidad.sh'
+alias evaluar-unidad='bash /shared/evaluar-unidad.sh'
 EOF
 fi
 
-# Crear script ~/bin/lab con chmod 755
+# ─── Script ~/bin/lab ───────────────────────────────────────────────────────
 mkdir -p ~/bin
 cat > ~/bin/lab <<'SCRIPT'
 #!/bin/bash
@@ -44,17 +59,17 @@ SCRIPT
 chmod 755 ~/bin/lab
 export PATH="$HOME/bin:$PATH"
 
-# Cargar alias en la sesión actual
+# Cargar aliases en la sesión actual
 . ~/.bash_aliases
 
-# ─── Preparar directorios para retos 6-10 ────────────────────────────────────
-# Reto 6: Permisos con chmod — crear directorio con permisos restringidos
+# ─── Preparar directorios para retos legacy (6-10) ──────────────────────────
+# Reto 6: Permisos con chmod
 if [ ! -d "$HOME/laboratorio/secret_dir" ]; then
     mkdir -p "$HOME/laboratorio/secret_dir"
     chmod 000 "$HOME/laboratorio/secret_dir"
 fi
 
-# Reto 7: Búsqueda de archivos — crear archivos ocultos para encontrar
+# Reto 7: Búsqueda de archivos
 if [ ! -f "$HOME/laboratorio/.oculto1.txt" ]; then
     mkdir -p "$HOME/laboratorio/busqueda/profundidad/nivel2"
     touch "$HOME/laboratorio/busqueda/archivo_a.txt"
@@ -65,7 +80,7 @@ if [ ! -f "$HOME/laboratorio/.oculto1.txt" ]; then
     touch "$HOME/laboratorio/.oculto2.txt"
 fi
 
-# Reto 8: Tuberías y Redirección — crear archivo de log para analizar
+# Reto 8: Tuberías y Redirección
 if [ ! -f "$HOME/laboratorio/acceso.log" ]; then
     cat > "$HOME/laboratorio/acceso.log" <<'LOGEOF'
 2024-01-15 08:23:15 INFO  usuario:admin accedio:/home
@@ -81,7 +96,7 @@ if [ ! -f "$HOME/laboratorio/acceso.log" ]; then
 LOGEOF
 fi
 
-# Reto 9: Procesos — crear script que se ejecuta en background
+# Reto 9: Procesos
 if [ ! -f "$HOME/laboratorio/watcher.sh" ]; then
     cat > "$HOME/laboratorio/watcher.sh" <<'WATCHEOF'
 #!/bin/bash
@@ -93,7 +108,7 @@ WATCHEOF
     chmod +x "$HOME/laboratorio/watcher.sh"
 fi
 
-# Reto 10: Compresión — crear directorio con archivos para comprimir
+# Reto 10: Compresión
 if [ ! -d "$HOME/laboratorio/para_comprimir" ]; then
     mkdir -p "$HOME/laboratorio/para_comprimir/documentos"
     mkdir -p "$HOME/laboratorio/para_comprimir/imagenes"
@@ -108,15 +123,13 @@ if [ ! -d "$HOME/laboratorio/para_comprimir" ]; then
     done
 fi
 
-# Mostrar manual interactivo al iniciar
-if [ -f "/manual.sh" ]; then
-    bash /manual.sh
-else
-    # Fallback: mostrar banner si manual.sh no existe
-    banner_bienvenida
-    echo -e "${AMARILLO}  BIENVENIDO. Escribe 'manual' para ver las instrucciones.${RESET}"
-    echo ""
-fi
+# ─── Mostrar banner de bienvenida ────────────────────────────────────────────
+banner_bienvenida
+echo -e "${CYAN}  Sistema legacy (10 retos):${RESET} escribe 'evaluar' o 'manual'"
+echo -e "${CYAN}  Nuevo sistema (11 unidades):${RESET} escribe 'unidad 2' para empezar"
+echo -e "${CYAN}  Ver retos de la unidad actual:${RESET} 'retos-unidad'"
+echo -e "${CYAN}  Evaluar unidad actual:${RESET} 'evaluar-unidad'"
+echo ""
 
-# Mantener la terminal interactiva abierta (-i = interactivo, carga ~/.bashrc)
+# Mantener terminal interactiva abierta
 exec bash -i
