@@ -19,6 +19,7 @@ fi
 UNIT_NUM=$(echo "$CURRENT_UNIT" | sed 's/unit-//' | tr 'IVX' 'ivx')
 # Convertir a número romano minúscula
 case "$UNIT_NUM" in
+    i) UNIT_DIR="i" ;;
     ii) UNIT_DIR="ii" ;;
     iii) UNIT_DIR="iii" ;;
     iv) UNIT_DIR="iv" ;;

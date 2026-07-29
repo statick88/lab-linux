@@ -10,7 +10,7 @@ if [ -z "$CURRENT_UNIT" ]; then
 fi
 
 if [ -z "$CURRENT_UNIT" ]; then
-    warning "No hay unidad seleccionada. Usa 'unidad <2-11>' para seleccionar una."
+    advertencia "No hay unidad seleccionada. Usa 'unidad <1-11>' para seleccionar una."
     exit 1
 fi
 
@@ -19,6 +19,7 @@ UNIT_ROMAN=$(echo "$CURRENT_UNIT" | sed 's/unit-//')
 
 # Mapear romano a directorio lowercase
 case "$UNIT_ROMAN" in
+    I) UNIT_DIR="i" ;;
     II) UNIT_DIR="ii" ;;
     III) UNIT_DIR="iii" ;;
     IV) UNIT_DIR="iv" ;;
@@ -46,6 +47,7 @@ fi
 
 # Obtener índice para la frase (1-11)
 case "$UNIT_ROMAN" in
+    I) IDX=1 ;;
     II) IDX=2 ;;
     III) IDX=3 ;;
     IV) IDX=4 ;;

@@ -34,12 +34,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     procps \
     net-tools \
     iproute2 \
+    docker.io \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Crear usuario 'estudiante' con permisos sudo sin contraseña
 RUN useradd -m -s /bin/bash estudiante && \
-    echo "estudiante ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    echo "estudiante ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    groupadd -f docker && \
+    usermod -aG docker estudiante
 
 # Copiar scripts al contenedor
 COPY entrypoint.sh /entrypoint.sh

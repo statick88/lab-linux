@@ -1,11 +1,12 @@
 #!/bin/bash
-# unidad.sh - Cambiar a una unidad del curso (II-XI)
+# unidad.sh - Cambiar a una unidad del curso (I-XI)
 # Uso: unidad <número>
 
 source /shared/common.sh
 
 get_unit_title() {
     case $1 in
+        1) echo "Fundamentos de Linux y WSL2" ;;
         2) echo "Gestion de Paquetes" ;;
         3) echo "Scripting Bash" ;;
         4) echo "Usuarios y SSH" ;;
@@ -22,6 +23,7 @@ get_unit_title() {
 # Mapear número a nombre de directorio (minúsculas como en el filesystem)
 get_unit_dir() {
     case $1 in
+        1) echo "i" ;;
         2) echo "ii" ;;
         3) echo "iii" ;;
         4) echo "iv" ;;
@@ -38,6 +40,7 @@ get_unit_dir() {
 # Mapear número a nombre de unidad para el estado (con prefijo unit-)
 get_unit_name() {
     case $1 in
+        1) echo "unit-I" ;;
         2) echo "unit-II" ;;
         3) echo "unit-III" ;;
         4) echo "unit-IV" ;;
@@ -53,9 +56,10 @@ get_unit_name() {
 
 if [ $# -eq 0 ]; then
     echo -e "${CYAN}Uso: unidad <número>${RESET}"
-    echo -e "${CYAN}Unidades disponibles: 2-11${RESET}"
+    echo -e "${CYAN}Unidades disponibles: 1-11${RESET}"
     echo ""
-    echo -e "  ${VERDE}2${RESET}  Gestión de Paquetes"
+    echo -e "  ${VERDE}1${RESET}  Fundamentos de Linux y WSL2"
+    echo -e "  ${VERDE}2${RESET}  Gestion de Paquetes"
     echo -e "  ${VERDE}3${RESET}  Scripting Bash"
     echo -e "  ${VERDE}4${RESET}  Usuarios y SSH"
     echo -e "  ${VERDE}5${RESET}  Procesos y systemd"
@@ -72,8 +76,8 @@ fi
 
 UNIT_NUM=$1
 
-if [ "$UNIT_NUM" -lt 2 ] || [ "$UNIT_NUM" -gt 11 ]; then
-    error "Unidad debe estar entre 2 y 11"
+if [ "$UNIT_NUM" -lt 1 ] || [ "$UNIT_NUM" -gt 11 ]; then
+    error "Unidad debe estar entre 1 y 11"
     exit 1
 fi
 
