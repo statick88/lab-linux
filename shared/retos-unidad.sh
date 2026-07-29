@@ -11,7 +11,7 @@ if [ -z "$CURRENT_UNIT" ]; then
 fi
 
 if [ -z "$CURRENT_UNIT" ]; then
-    warning "No hay unidad seleccionada. Usa 'unidad <2-11>' para seleccionar una."
+    warning "No hay unidad seleccionada. Usa 'unidad <1-11>' para seleccionar una."
     exit 1
 fi
 

@@ -51,7 +51,7 @@ cat > reto3.sh << 'EOF'
 #!/bin/bash
 # Reto 3: Script con if/else que verifique si un numero es par o impar
 cat > par_o_impar.sh << 'INNER'
-#!//bin/bash
+#!/bin/bash
 echo -n "Ingresa un numero: "
 read num
 if [ $((num % 2)) -eq 0 ]; then

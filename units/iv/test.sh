@@ -48,7 +48,7 @@ reto7() {
 reto8() {
     # Verificar que el directorio tiene permisos 755
     [ -d "/tmp/proyecto" ]
-    permisos=$(stat -f "%Lp" /tmp/proyecto 2>/dev/null || stat -c "%a" /tmp/proyecto 2>/dev/null)
+    permisos=$(stat -c "%a" /tmp/proyecto 2>/dev/null)
     [ "$permisos" = "755" ]
 }
 

@@ -24,9 +24,10 @@ contar_completados() {
 }
 
 evaluar_reto() {
-    esta_completado "$1" "$2" && return 0
+    local unit=$1 reto=$2
+    esta_completado "$unit" "$reto" && return 0
     shift 2
-    eval "$@" >/dev/null 2>&1 && { marcar_completado "$1" "$2"; return 0; }
+    eval "$@" >/dev/null 2>&1 && { marcar_completado "$unit" "$reto"; return 0; }
     return 1
 }
 

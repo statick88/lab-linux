@@ -51,13 +51,6 @@ mostrar_progreso_global() {
     echo -ne "  Progreso total: "; mostrar_barra_progreso "$completados" "$total"
 }
 
-get_unit_name() {
-    case $1 in
-        1)echo"unit-I";;2)echo"unit-II";;3)echo"unit-III";;4)echo"unit-IV";;5)echo"unit-V";;
-        6)echo"unit-VI";;7)echo"unit-VII";;8)echo"unit-VIII";;9)echo"unit-IX";;10)echo"unit-X";;11)echo"unit-XI";;
-    esac
-}
-
 get_unit_total_retos() { echo "${RETOS_POR_UNIDAD[$(($1-1))]}"; }
 
 ejecutar_unidad() {
@@ -65,8 +58,7 @@ ejecutar_unidad() {
         unit-II|unit-III|unit-IV|unit-V|unit-VI|unit-VII|unit-VIII|unit-IX|unit-X|unit-XI)
             source "$HOME/laboratorio/units/${1}/test.sh" ;;
         unit-I)
-            warning "Unidad I no implementada aún"
-            return 1 ;;
+            source "$HOME/laboratorio/units/i/test.sh" ;;
         *) error "Unidad no encontrada: $1"; return 1 ;;
     esac
 }

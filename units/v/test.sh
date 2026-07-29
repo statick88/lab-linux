@@ -7,7 +7,6 @@ source /shared/common.sh
 
 UNIT_NAME="unit-V"
 TOTAL_RETOS=10
-TOTAL_RETOS=10
 
 reto1() {
     # Verificar que ps aux funciona y muestra procesos
