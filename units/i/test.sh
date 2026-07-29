@@ -138,15 +138,6 @@ reto7() {
 Tu respuesta (A/B/C/D): " "B" "mount une un FS al árbol de directorios" "MONTAR"
 }
 
-reto7() {
-    ask_question "PREGUNTA 7: ¿Qué comando se usa para montar un sistema de archivos en un directorio?
-  A) fsck
-  B) mount
-  C) fdisk
-  D) mkfs
-Tu respuesta (A/B/C/D): " "B" "mount une un FS al árbol de directorios" "MONTAR"
-}
-
 reto8() {
     ask_question "PREGUNTA 8: ¿Qué UID (User ID) tiene siempre el usuario root en Linux?
   A) 1

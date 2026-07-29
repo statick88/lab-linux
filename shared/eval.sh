@@ -23,14 +23,6 @@ contar_completados() {
     echo "$count"
 }
 
-evaluar_reto() {
-    local unit=$1 reto=$2
-    esta_completado "$unit" "$reto" && return 0
-    shift 2
-    eval "$@" >/dev/null 2>&1 && { marcar_completado "$unit" "$reto"; return 0; }
-    return 1
-}
-
 mostrar_estado_retos() {
     local unit=$1 -n retos_ref=$2 total=${#retos_ref[@]} i
     completados=$(contar_completados "$unit" "$total")
