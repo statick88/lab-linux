@@ -94,6 +94,15 @@ Usa `revelar-frase` tras completar todos los retos de una unidad.
 
 ---
 
+## Novedades v1.1.0
+
+- **Comandos interactivos funcionan en cualquier shell**: `menu`, `jugar`, `retos`, `evaluar`, `revelar-frase` ahora usan funciones cargadas desde `shared/interactive.sh` vía `.bash_aliases`
+- **Autocompletado Tab habilitado**: instalado `bash-completion` en la imagen base
+- **Instrucciones paso a paso claras**: Unidad III (Scripting) muestra comandos en líneas separadas para evitar errores de copiado
+- **Validadores robustos**: reto 5 (Permisos 755) ahora verifica el archivo `archivo` del estudiante, no un archivo temporal interno
+
+---
+
 ## Arquitectura
 
 ```
