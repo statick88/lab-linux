@@ -31,10 +31,30 @@ reto4() {
 }
 
 reto5() {
-    # Verificar que chmod 755 otorga permisos rwxr-xr-x (portable)
-    touch /tmp/test_perms && chmod 755 /tmp/test_perms
-    # Check owner has rwx, group has r-x, others have r-x
-    [ -r /tmp/test_perms ] && [ -w /tmp/test_perms ] && [ -x /tmp/test_perms ] && rm /tmp/test_perms
+    # Verificar que el estudiante creó un archivo "archivo" con chmod 755
+    # Buscar en directorio actual y $HOME
+    local archivo=""
+    for dir in "$PWD" "$HOME"; do
+        if [ -f "$dir/archivo" ]; then
+            archivo="$dir/archivo"
+            break
+        fi
+    done
+
+    if [ -z "$archivo" ]; then
+        echo "  ❌ No se encontró el archivo 'archivo'. Crea uno con: touch archivo"
+        return 1
+    fi
+
+    # Verificar permisos 755 (rwxr-xr-x)
+    local perms=$(stat -c "%a" "$archivo" 2>/dev/null || stat -f "%A" "$archivo" 2>/dev/null)
+    if [ "$perms" != "755" ]; then
+        echo "  ❌ El archivo 'archivo' no tiene permisos 755 (tiene: $perms). Ejecuta: chmod 755 archivo"
+        return 1
+    fi
+
+    # Verificar bits individuales: owner=rwx, group=r-x, others=r-x
+    [ -r "$archivo" ] && [ -w "$archivo" ] && [ -x "$archivo" ]
 }
 
 reto6() {
@@ -135,8 +155,11 @@ reto5_info() {
     separador
     echo -e "${CYAN}Reto 5: Permisos 755${NC}"
     echo ""
-    echo "chmod 755 otorga: Propietario=rwx, Grupo=r-x, Otros=r-x"
-    echo "7=rwx (4+2+1), 5=r-x (4+0+1), 5=r-x"
+    echo "Crea un archivo llamado 'archivo' y dale permisos 755:"
+    echo "  touch archivo"
+    echo "  chmod 755 archivo"
+    echo ""
+    echo "755 = Propietario=rwx (7), Grupo=r-x (5), Otros=r-x (5)"
     echo ""
     echo "Comando útil: chmod 755 archivo"
     separador
