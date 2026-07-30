@@ -113,7 +113,12 @@ reto1_info() {
     echo "  4. Hazlo ejecutable: chmod +x ~/laboratorio/shell/saludar.sh"
     echo "  5. Ejecútalo para probar: ./saludar.sh"
     echo ""
-    echo "Comandos útiles: echo, chmod +x"
+    echo "Comandos útiles:"
+    echo "  nano ~/laboratorio/shell/saludar.sh"
+    echo "  #!/bin/bash"
+    echo "  echo \"¡Hola!\""
+    echo "  chmod +x ~/laboratorio/shell/saludar.sh"
+    echo "  ./saludar.sh"
     separador
 }
 
@@ -130,8 +135,13 @@ reto2_info() {
     echo "  3. Usa echo para mostrar el nombre ingresado"
     echo "  4. Hazlo ejecutable: chmod +x ~/laboratorio/shell/pedir_nombre.sh"
     echo ""
-    echo "Comandos útiles: read, echo"
-    echo "Ejemplo: read -p \"¿Cómo te llamas? \" nombre"
+    echo "Comandos útiles:"
+    echo "  nano ~/laboratorio/shell/pedir_nombre.sh"
+    echo "  #!/bin/bash"
+    echo "  read -p \"¿Cómo te llamas? \" nombre"
+    echo "  echo \"Hola \$nombre\""
+    echo "  chmod +x ~/laboratorio/shell/pedir_nombre.sh"
+    echo "  ./pedir_nombre.sh"
     separador
 }
 
@@ -149,8 +159,13 @@ reto3_info() {
     echo "  4. Imprime si es par o impar"
     echo "  5. Hazlo ejecutable: chmod +x ~/laboratorio/shell/par_o_impar.sh"
     echo ""
-    echo "Comandos útiles: read, if, (( ))"
-    echo "Ejemplo: if (( numero % 2 == 0 )); then echo \"Par\"; fi"
+    echo "Comandos útiles:"
+    echo "  nano ~/laboratorio/shell/par_o_impar.sh"
+    echo "  #!/bin/bash"
+    echo "  read -p \"Número: \" numero"
+    echo "  if (( numero % 2 == 0 )); then echo Par; else echo Impar; fi"
+    echo "  chmod +x ~/laboratorio/shell/par_o_impar.sh"
+    echo "  ./par_o_impar.sh"
     separador
 }
 
@@ -167,8 +182,12 @@ reto4_info() {
     echo "  3. Imprime cada numero con echo \"Numero: \$i\""
     echo "  4. Hazlo ejecutable: chmod +x ~/laboratorio/shell/contar.sh"
     echo ""
-    echo "Comandos útiles: for, {1..10}"
-    echo "Ejemplo: for i in {1..10}; do echo \"Numero: \$i\"; done"
+    echo "Comandos útiles:"
+    echo "  nano ~/laboratorio/shell/contar.sh"
+    echo "  #!/bin/bash"
+    echo "  for i in {1..10}; do echo \"Numero: \$i\"; done"
+    echo "  chmod +x ~/laboratorio/shell/contar.sh"
+    echo "  ./contar.sh"
     separador
 }
 
@@ -186,8 +205,13 @@ reto5_info() {
     echo "  4. Incrementa el contador con (( contador++ ))"
     echo "  5. Hazlo ejecutable: chmod +x ~/laboratorio/shell/contar_while.sh"
     echo ""
-    echo "Comandos útiles: while, -le, (( ))"
-    echo "Ejemplo: while [ \$contador -le 5 ]; do ...; (( contador++ )); done"
+    echo "Comandos útiles:"
+    echo "  nano ~/laboratorio/shell/contar_while.sh"
+    echo "  #!/bin/bash"
+    echo "  contador=1"
+    echo "  while [ \$contador -le 5 ]; do echo \$contador; (( contador++ )); done"
+    echo "  chmod +x ~/laboratorio/shell/contar_while.sh"
+    echo "  ./contar_while.sh"
     separador
 }
 
@@ -204,8 +228,13 @@ reto6_info() {
     echo "  3. Llama a la funcion con valores de ejemplo"
     echo "  4. Hazlo ejecutable: chmod +x ~/laboratorio/shell/sumar.sh"
     echo ""
-    echo "Comandos útiles: funciones, \$1, \$2, \$(( ))"
-    echo "Ejemplo: sumar() { echo \$(( \$1 + \$2 )); }"
+    echo "Comandos útiles:"
+    echo "  nano ~/laboratorio/shell/sumar.sh"
+    echo "  #!/bin/bash"
+    echo "  sumar() { echo \$(( \$1 + \$2 )); }"
+    echo "  sumar 3 5"
+    echo "  chmod +x ~/laboratorio/shell/sumar.sh"
+    echo "  ./sumar.sh"
     separador
 }
 
@@ -223,8 +252,13 @@ reto7_info() {
     echo "  4. Imprime cada fruta"
     echo "  5. Hazlo ejecutable: chmod +x ~/laboratorio/shell/frutas.sh"
     echo ""
-    echo "Comandos útiles: arrays, for, \${array[@]}"
-    echo "Ejemplo: for fruta in \${frutas[@]}; do echo \$fruta; done"
+    echo "Comandos útiles:"
+    echo "  nano ~/laboratorio/shell/frutas.sh"
+    echo "  #!/bin/bash"
+    echo "  frutas=(manzana pera uva)"
+    echo "  for fruta in \${frutas[@]}; do echo \$fruta; done"
+    echo "  chmod +x ~/laboratorio/shell/frutas.sh"
+    echo "  ./frutas.sh"
     separador
 }
 
@@ -242,8 +276,10 @@ reto8_info() {
     echo "  4. Hazlo ejecutable: chmod +x ~/laboratorio/shell/saludo.sh"
     echo "  5. Prueba: ./saludo.sh Carlos"
     echo ""
-    echo "Comandos útiles: \$1, \$2, \$#"
-    echo "Ejemplo: echo \"Hola \$1, bienvenido\""
+    echo "Comandos útiles:"
+    echo "  echo \"Hola \$1\""
+    echo "  ./saludo.sh Carlos"
+    echo "  chmod +x saludo.sh"
     separador
 }
 
@@ -261,8 +297,10 @@ reto9_info() {
     echo "  4. Hazlo ejecutable: chmod +x ~/laboratorio/shell/registrar.sh"
     echo "  5. Ejecútalo y verifica: cat ~/laboratorio/shell/registro.txt"
     echo ""
-    echo "Comandos útiles: >>, >, date"
-    echo "Ejemplo: echo \"Fecha: \$(date)\" >> registro.txt"
+    echo "Comandos útiles:"
+    echo "  echo \"Fecha: \$(date)\" >> registro.txt"
+    echo "  cat registro.txt"
+    echo "  chmod +x registrar.sh"
     separador
 }
 
@@ -281,7 +319,9 @@ reto10_info() {
     echo "  4. Si existe, muestra confirmación"
     echo "  5. Hazlo ejecutable: chmod +x ~/laboratorio/shell/verificar_archivo.sh"
     echo ""
-    echo "Comandos útiles: if, -f, -e, else"
-    echo "Ejemplo: if [ -f \"\$1\" ]; then echo \"Existe\"; else echo \"no existe\"; fi"
+    echo "Comandos útiles:"
+    echo "  if [ -f \"\$1\" ]; then echo Existe; else echo \"no existe\"; fi"
+    echo "  ./verificar_archivo.sh archivo.txt"
+    echo "  chmod +x verificar_archivo.sh"
     separador
 }
