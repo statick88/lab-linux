@@ -18,6 +18,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Actualizar repositorios e instalar herramientas necesarias
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bash \
+    bash-completion \
     coreutils \
     tree \
     nano \
@@ -57,6 +58,9 @@ COPY units/ /opt/lab-units/
 
 # Copiar plantilla de respuestas
 COPY plantilla.md /home/estudiante/laboratorio/plantilla.md
+
+# Copiar .bashrc personalizado para el estudiante
+COPY bashrc /home/estudiante/.bashrc
 
 # Establecer permisos de ejecución y dueño
 RUN chmod +x /entrypoint.sh && \
