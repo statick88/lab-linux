@@ -68,14 +68,16 @@ reto8() {
 
 reto9() {
     # Verificar que puede crear imagen
-    cat > /tmp/test_dockerfile << 'EOF'
+    mkdir -p /tmp/build_test
+    cat > /tmp/build_test/Dockerfile << 'EOF'
 FROM ubuntu:latest
 RUN echo "test"
 CMD ["echo", "image_test"]
 EOF
-    docker build -t test_image /tmp/ 2>/dev/null
+    docker build -t test_image /tmp/build_test/ 2>/dev/null
     output=$(docker run --rm test_image 2>/dev/null)
     docker rmi test_image 2>/dev/null
+    rm -rf /tmp/build_test
     [ "$output" = "image_test" ]
 }
 
@@ -101,4 +103,148 @@ challenge_names=(
     "Limpiar recursos"
 )
 
-ejecutar_evaluacion "$UNIT_NAME" "$TOTAL_RETOS" "${validators[@]}"
+reto1_info() {
+    separador
+    echo -e "${CYAN}Reto 1: Verificar Docker${NC}"
+    echo ""
+    echo "Verifica que Docker esta instalado correctamente en tu sistema."
+    echo ""
+    echo "Comandos utiles:"
+    echo "  docker --version    -- Muestra la version de Docker instalada"
+    echo "  docker info         -- Muestra informacion general del demonio Docker"
+    separador
+}
+
+reto2_info() {
+    separador
+    echo -e "${CYAN}Reto 2: Ejecutar contenedor basico${NC}"
+    echo ""
+    echo "Ejecuta un contenedor basico de Ubuntu y verifica que funciona."
+    echo ""
+    echo "Comandos utiles:"
+    echo "  docker run --rm ubuntu:latest echo 'hola'  -- Ejecuta un comando en un contenedor temporal"
+    echo "  docker ps                                  -- Lista contenedores en ejecucion"
+    separador
+}
+
+reto3_info() {
+    separador
+    echo -e "${CYAN}Reto 3: Listar contenedores${NC}"
+    echo ""
+    echo "Crea un contenedor en segundo plano y listalo con docker ps."
+    echo "El contenedor debe aparecer en la lista de contenedores activos."
+    echo ""
+    echo "Comandos utiles:"
+    echo "  docker run -d --name mi_contenedor ubuntu:latest sleep 300"
+    echo "  docker ps                        -- Lista contenedores en ejecucion"
+    echo "  docker stop mi_contenedor        -- Detiene un contenedor"
+    echo "  docker rm mi_contenedor          -- Elimina un contenedor"
+    separador
+}
+
+reto4_info() {
+    separador
+    echo -e "${CYAN}Reto 4: Ejecutar comandos en contenedor${NC}"
+    echo ""
+    echo "Ejecuta un comando dentro de un contenedor en ejecucion."
+    echo "Demuestra que puedes interactuar con un contenedor activo."
+    echo ""
+    echo "Comandos utiles:"
+    echo "  docker exec mi_contenedor ls           -- Ejecuta un comando en un contenedor activo"
+    echo "  docker exec mi_contenedor bash          -- Abre una sesion bash en el contenedor"
+    echo "  docker run --rm ubuntu:latest echo test -- Ejecuta un comando directamente"
+    separador
+}
+
+reto5_info() {
+    separador
+    echo -e "${CYAN}Reto 5: Ver logs de contenedor${NC}"
+    echo ""
+    echo "Genera y consulta los logs de un contenedor."
+    echo "El contenedor debe producir algun mensaje que puedas ver con docker logs."
+    echo ""
+    echo "Comandos utiles:"
+    echo "  docker run -d --name log_test ubuntu:latest bash -c 'echo hola'"
+    echo "  docker logs log_test             -- Muestra los logs del contenedor"
+    echo "  docker logs -f log_test          -- Sigue los logs en tiempo real"
+    separador
+}
+
+reto6_info() {
+    separador
+    echo -e "${CYAN}Reto 6: Inspeccionar contenedor${NC}"
+    echo ""
+    echo "Usa docker inspect para obtener informacion detallada de un contenedor."
+    echo "Debes poder ver la configuracion de red, volumenes y estado."
+    echo ""
+    echo "Comandos utiles:"
+    echo "  docker inspect mi_contenedor              -- Muestra toda la configuracion JSON"
+    echo "  docker inspect --format '{{.State.Status}}' mi_contenedor  -- Campo especifico"
+    echo "  docker inspect --format '{{.NetworkSettings.IPAddress}}' mi_contenedor"
+    separador
+}
+
+reto7_info() {
+    separador
+    echo -e "${CYAN}Reto 7: Gestionar redes${NC}"
+    echo ""
+    echo "Crea una red Docker personalizada y listalas."
+    echo "Demuestra que puedes administrar redes de contenedores."
+    echo ""
+    echo "Comandos utiles:"
+    echo "  docker network create mi_red     -- Crea una nueva red"
+    echo "  docker network ls                -- Lista todas las redes"
+    echo "  docker network inspect mi_red    -- Detalles de una red"
+    echo "  docker network rm mi_red         -- Elimina una red"
+    separador
+}
+
+reto8_info() {
+    separador
+    echo -e "${CYAN}Reto 8: Gestionar volumenes${NC}"
+    echo ""
+    echo "Crea un volumen Docker y listalos."
+    echo "Los volumenes permiten persistir datos mas alla del ciclo de vida de los contenedores."
+    echo ""
+    echo "Comandos utiles:"
+    echo "  docker volume create mi_volumen   -- Crea un nuevo volumen"
+    echo "  docker volume ls                  -- Lista todos los volumenes"
+    echo "  docker volume inspect mi_volumen  -- Detalles de un volumen"
+    echo "  docker volume rm mi_volumen       -- Elimina un volumen"
+    separador
+}
+
+reto9_info() {
+    separador
+    echo -e "${CYAN}Reto 9: Crear imagen con Dockerfile${NC}"
+    echo ""
+    echo "Crea un Dockerfile y construye una imagen personalizada."
+    echo "El Dockerfile debe definir al menos FROM, RUN y CMD."
+    echo ""
+    echo "Comandos utiles:"
+    echo "  touch Dockerfile                              -- Crea el archivo Dockerfile"
+    echo "  docker build -t mi_imagen .                   -- Construye la imagen desde el Dockerfile"
+    echo "  docker run --rm mi_imagen                     -- Ejecuta un contenedor con la imagen"
+    echo "  docker images                                 -- Lista las imagenes disponibles"
+    echo ""
+    echo "Estructura minima de un Dockerfile:"
+    echo "  FROM ubuntu:latest"
+    echo "  RUN echo 'Hola Mundo'"
+    echo '  CMD ["echo", "imagen_creada"]'
+    separador
+}
+
+reto10_info() {
+    separador
+    echo -e "${CYAN}Reto 10: Limpiar recursos${NC}"
+    echo ""
+    echo "Limpia todos los recursos Docker utilizados: contenedores, imagenes y volumenes."
+    echo "Demuestra que puedes liberar espacio en tu sistema."
+    echo ""
+    echo "Comandos utiles:"
+    echo "  docker ps -aq | xargs docker rm -f    -- Elimina todos los contenedores"
+    echo "  docker images -q | xargs docker rmi    -- Elimina todas las imagenes"
+    echo "  docker volume ls -q | xargs docker volume rm  -- Elimina todos los volumenes"
+    echo "  docker system prune -a                 -- Limpia todo de una vez"
+    separador
+}

@@ -34,7 +34,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     procps \
     net-tools \
     iproute2 \
+    fdisk \
     docker.io \
+    pandoc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -44,12 +46,8 @@ RUN useradd -m -s /bin/bash estudiante && \
     groupadd -f docker && \
     usermod -aG docker estudiante
 
-# Copiar scripts al contenedor
+# Copiar entrypoint
 COPY entrypoint.sh /entrypoint.sh
-COPY test.sh /test.sh
-COPY manual.sh /manual.sh
-COPY revelar-frase.sh /revelar-frase.sh
-COPY generar-respuestas.sh /generar-respuestas.sh
 
 # Copiar biblioteca compartida
 COPY shared/ /shared/
@@ -60,10 +58,11 @@ COPY units/ /opt/lab-units/
 # Copiar plantilla de respuestas
 COPY plantilla.md /home/estudiante/laboratorio/plantilla.md
 
-# Establecer permisos de ejecución
-RUN chmod +x /entrypoint.sh /test.sh /manual.sh /revelar-frase.sh /generar-respuestas.sh && \
+# Establecer permisos de ejecución y dueño
+RUN chmod +x /entrypoint.sh && \
     chmod +x /shared/*.sh && \
-    find /opt/lab-units -name "*.sh" -exec chmod +x {} \;
+    find /opt/lab-units -name "*.sh" -exec chmod +x {} \; && \
+    chown -R estudiante:estudiante /home/estudiante/laboratorio
 
 # Cambiar al usuario 'estudiante'
 USER estudiante

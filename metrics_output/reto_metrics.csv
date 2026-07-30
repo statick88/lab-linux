@@ -1,0 +1,80 @@
+unit,reto,reto_name,start_ms,end_ms,duration_ms,status,notes
+i,1,Directorio /etc (FHS),1785421908070,1785421908081,11,PASS,ok
+i,2,/var vs /tmp,1785421908093,1785421908105,12,PASS,ok
+i,3,Comando pwd,1785421908115,1785421908128,13,PASS,ok
+i,4,Opción ls -a,1785421908137,1785421908150,13,PASS,ok
+i,5,Permisos 755,1785421908159,1785421908172,13,PASS,ok
+i,6,WSL2 arquitectura,1785421908183,1785421908194,11,PASS,ok
+i,7,Comando mount,1785421908204,1785421908215,11,PASS,ok
+i,8,UID de root,1785421908226,1785421908240,14,PASS,ok
+i,9,Símbolo pipe,1785421908250,1785421908264,14,PASS,ok
+i,10,df -h espacio disco,1785421908277,1785421908294,17,PASS,ok
+ii,1,Actualizar repositorios,1785421908352,1785421908383,31,PASS,ok
+ii,2,Instalar vim,1785421908395,1785421908411,16,PASS,ok
+ii,3,Instalar curl y tree,1785421908422,1785421908437,15,PASS,ok
+ii,4,Consultar info de paquete,1785421908449,1785421908471,22,PASS,ok
+ii,5,Buscar paquetes,1785421908482,1785421908505,23,PASS,ok
+ii,6,Consultar estado con dpkg,1785421908517,1785421908532,15,PASS,ok
+ii,7,Listar archivos de paquete,1785421908542,1785421908556,14,PASS,ok
+ii,8,Identificar paquete propietario,1785421908567,1785421908587,20,PASS,ok
+ii,9,Eliminar paquete (conservar config),1785421908598,1785421908612,14,FAIL,validation_failed
+ii,10,Eliminar paquete y configuracion,1785421908623,1785421908637,14,PASS,ok
+iii,1,Crear primer script,1785421908666,1785421908677,11,PASS,ok
+iii,2,Variables y entrada,1785421908686,1785421908696,10,FAIL,validation_failed
+iii,3,Condicionales if/else,1785421908704,1785421908714,10,FAIL,validation_failed
+iii,4,Bucle for,1785421908723,1785421908734,11,FAIL,validation_failed
+iii,5,Bucle while,1785421908743,1785421908753,10,FAIL,validation_failed
+iii,6,Funciones,1785421908762,1785421908773,11,FAIL,validation_failed
+iii,7,Arrays,1785421908781,1785421908792,11,FAIL,validation_failed
+iii,8,Argumentos de linea,1785421908801,1785421908812,11,FAIL,validation_failed
+iii,9,Redireccion de salida,1785421908821,1785421908831,10,FAIL,validation_failed
+iii,10,Manejo de errores,1785421908840,1785421908851,11,FAIL,validation_failed
+iv,1,Crear usuario,1785421908880,1785421908890,10,FAIL,validation_failed
+iv,2,Crear grupo,1785421908899,1785421908909,10,FAIL,validation_failed
+iv,3,Agregar usuario a grupo,1785421908918,1785421908928,10,FAIL,validation_failed
+iv,4,Cambiar contrasena,1785421908937,1785421908964,27,FAIL,validation_failed
+iv,5,Cambiar shell por defecto,1785421908981,1785421908993,12,FAIL,validation_failed
+iv,6,Crear directorio home,1785421909002,1785421909014,12,FAIL,validation_failed
+iv,7,Cambiar ownership,1785421909023,1785421909033,10,FAIL,validation_failed
+iv,8,Configurar permisos,1785421909042,1785421909052,10,FAIL,validation_failed
+iv,9,Eliminar usuario,1785421909061,1785421909072,11,PASS,ok
+iv,10,Limpiar usuario y grupo,1785421909081,1785421909092,11,PASS,ok
+v,1,Listar procesos,1785421909122,1785421909135,13,PASS,ok
+v,2,Buscar proceso especifico,1785421909144,1785421909156,12,PASS,ok
+v,3,Crear proceso en background,1785421909165,1785421909175,10,PASS,ok
+v,4,Matar un proceso,1785421909185,1785421911203,2018,PASS,ok
+v,5,Top procesos por CPU,1785421911215,1785421911230,15,PASS,ok
+v,6,Top procesos por memoria,1785421911242,1785421911258,16,PASS,ok
+v,7,Procesos por usuario,1785421911269,1785421911284,15,PASS,ok
+v,8,Crear cron job,1785421911296,1785421911315,19,PASS,ok
+v,9,Verificar servicio,1785421911326,1785421911343,17,PASS,ok
+v,10,Listar servicios activos,1785421911353,1785421911370,17,PASS,ok
+vi,1,Ver dispositivos de bloque,1785421911407,1785421911421,14,PASS,ok
+vi,2,Ver tabla de particiones,1785421911433,1785421911452,19,PASS,ok
+vi,3,Crear disco virtual,1785421911464,1785421911481,17,PASS,ok
+vi,4,Formatear disco virtual,1785421911491,1785421911519,28,PASS,ok
+vi,5,Montar disco virtual,1785421911528,1785421911571,43,PASS,ok
+vi,6,Copiar archivos a disco,1785421911581,1785421911623,42,PASS,ok
+vi,7,Desmontar disco,1785421911634,1785421911690,56,PASS,ok
+vi,8,Ver espacio en disco,1785421911700,1785421911715,15,PASS,ok
+vi,9,Medir tamaño de directorio,1785421911727,1785421911739,12,PASS,ok
+vi,10,Limpiar disco virtual,1785421911751,1785421911763,12,PASS,ok
+vii,1,Verificar usuarios root,1785421911800,1785421911814,14,PASS,ok
+vii,2,Permisos archivos criticos,1785421911825,1785421911840,15,PASS,ok
+vii,3,Buscar usuarios sin contraseña,1785421911852,1785421911864,12,PASS,ok
+vii,4,Verificar sudoers,1785421911877,1785421911896,19,PASS,ok
+vii,5,Ver servicios abiertos,1785421911907,1785421911924,17,PASS,ok
+vii,6,Verificar firewall,1785421911936,1785421912002,66,PASS,ok
+vii,7,Generar claves SSH,1785421912014,1785421912169,155,PASS,ok
+vii,8,Permisos directorio SSH,1785421912180,1785421912196,16,PASS,ok
+vii,9,Ver intentos de login,1785421912206,1785421912225,19,PASS,ok
+vii,10,Encontrar archivos SUID,1785421912236,1785421912426,190,PASS,ok
+viii,1,Verificar Docker,1785421912463,1785421912485,22,PASS,ok
+viii,2,Ejecutar contenedor basico,1785421912496,1785421912700,204,PASS,ok
+viii,3,Listar contenedores,1785421912710,1785421922932,10222,PASS,ok
+viii,4,Ejecutar comandos en contenedor,1785421922942,1785421923112,170,PASS,ok
+viii,5,Ver logs de contenedor,1785421923121,1785421925160,2039,PASS,ok
+viii,6,Inspeccionar contenedor,1785421925170,1785421935440,10270,PASS,ok
+viii,7,Gestionar redes,1785421935451,1785421935573,122,PASS,ok
+viii,8,Gestionar volumenes,1785421935583,1785421935623,40,PASS,ok
+viii,9,Crear imagen con Dockerfile,1785421935633,1785421936887,1254,PASS,ok

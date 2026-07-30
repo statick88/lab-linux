@@ -11,14 +11,16 @@ Cada reto completado revela una palabra de la frase oculta. Completa los 10 reto
 
 | Reto | Palabra | Estado |
 |------|---------|--------|
-| 1 | EL | ⬜ Pendiente |
-| 2 | CONOCIMIENTO | ⬜ Pendiente |
-| 3 | ES | ⬜ Pendiente |
-| 4 | PODER | ⬜ Pendiente |
-| 5 | QUE | ⬜ Pendiente |
-| 6 | DA | ⬜ Pendiente |
-| 7 | LA | ⬜ Pendiente |
+| 1 | ??? | ⬜ Pendiente |
+| 2 | ??? | ⬜ Pendiente |
+| 3 | ??? | ⬜ Pendiente |
+| 4 | ??? | ⬜ Pendiente |
+| 5 | ??? | ⬜ Pendiente |
+| 6 | ??? | ⬜ Pendiente |
+| 7 | ??? | ⬜ Pendiente |
 | 8 | ??? | ⬜ Pendiente |
+| 9 | ??? | ⬜ Pendiente |
+| 10 | ??? | ⬜ Pendiente |
 
 ---
 

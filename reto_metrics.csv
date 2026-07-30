@@ -1,0 +1,111 @@
+unit,reto,reto_name,start_ms,end_ms,duration_ms,status,notes
+i,1,Directorio /etc (FHS),1785414818218,1785414818227,9,PASS,ok
+i,2,/var vs /tmp,1785414818237,1785414818248,11,PASS,ok
+i,3,Comando pwd,1785414818258,1785414818268,10,PASS,ok
+i,4,Opción ls -a,1785414818279,1785414818289,10,PASS,ok
+i,5,Permisos 755,1785414818299,1785414818312,13,PASS,ok
+i,6,WSL2 arquitectura,1785414818322,1785414818332,10,PASS,ok
+i,7,Comando mount,1785414818342,1785414818353,11,PASS,ok
+i,8,UID de root,1785414818363,1785414818373,10,PASS,ok
+i,9,Símbolo pipe,1785414818383,1785414818393,10,PASS,ok
+i,10,df -h espacio disco,1785414818403,1785414818414,11,PASS,ok
+ii,1,Actualizar repositorios,1785414818454,1785414818475,21,PASS,ok
+ii,2,Instalar vim,1785414818485,1785414818497,12,PASS,ok
+ii,3,Instalar curl y tree,1785414818507,1785414818520,13,PASS,ok
+ii,4,Consultar info de paquete,1785414818530,1785414818550,20,PASS,ok
+ii,5,Buscar paquetes,1785414818560,1785414818582,22,PASS,ok
+ii,6,Consultar estado con dpkg,1785414818592,1785414818605,13,PASS,ok
+ii,7,Listar archivos de paquete,1785414818615,1785414818627,12,PASS,ok
+ii,8,Identificar paquete propietario,1785414818638,1785414818656,18,PASS,ok
+ii,9,Eliminar paquete (conservar config),1785414818667,1785414818679,12,FAIL,validation_failed
+ii,10,Eliminar paquete y configuracion,1785414818689,1785414818703,14,PASS,ok
+iii,1,Crear primer script,1785414818737,1785414818746,9,FAIL,validation_failed
+iii,2,Variables y entrada,1785414818757,1785414818766,9,FAIL,validation_failed
+iii,3,Condicionales if/else,1785414818777,1785414818787,10,FAIL,validation_failed
+iii,4,Bucle for,1785414818797,1785414818809,12,FAIL,validation_failed
+iii,5,Bucle while,1785414818819,1785414818829,10,FAIL,validation_failed
+iii,6,Funciones,1785414818838,1785414818850,12,FAIL,validation_failed
+iii,7,Arrays,1785414818860,1785414818872,12,FAIL,validation_failed
+iii,8,Argumentos de linea,1785414818881,1785414818893,12,FAIL,validation_failed
+iii,9,Redireccion de salida,1785414818903,1785414818914,11,FAIL,validation_failed
+iii,10,Manejo de errores,1785414818924,1785414818935,11,FAIL,validation_failed
+iv,1,Crear usuario,1785414818969,1785414818979,10,FAIL,validation_failed
+iv,2,Crear grupo,1785414818989,1785414818999,10,FAIL,validation_failed
+iv,3,Agregar usuario a grupo,1785414819009,1785414819019,10,FAIL,validation_failed
+iv,4,Cambiar contrasena,1785414819029,1785414819043,14,FAIL,validation_failed
+iv,5,Cambiar shell por defecto,1785414819053,1785414819064,11,FAIL,validation_failed
+iv,6,Crear directorio home,1785414819074,1785414819084,10,FAIL,validation_failed
+iv,7,Cambiar ownership,1785414819094,1785414819105,11,FAIL,validation_failed
+iv,8,Configurar permisos,1785414819114,1785414819125,11,FAIL,validation_failed
+iv,9,Eliminar usuario,1785414819135,1785414819146,11,PASS,ok
+iv,10,Limpiar usuario y grupo,1785414819155,1785414819165,10,PASS,ok
+v,1,Listar procesos,1785414819199,1785414819213,14,PASS,ok
+v,2,Buscar proceso especifico,1785414819222,1785414819234,12,PASS,ok
+v,3,Crear proceso en background,1785414819244,1785414819254,10,PASS,ok
+v,4,Matar un proceso,1785414819264,1785414821279,2015,PASS,ok
+v,5,Top procesos por CPU,1785414821293,1785414821310,17,PASS,ok
+v,6,Top procesos por memoria,1785414821324,1785414821340,16,PASS,ok
+v,7,Procesos por usuario,1785414821352,1785414821368,16,PASS,ok
+v,8,Crear cron job,1785414821378,1785414821396,18,PASS,ok
+v,9,Verificar servicio,1785414821406,1785414821420,14,PASS,ok
+v,10,Listar servicios activos,1785414821431,1785414821445,14,PASS,ok
+vi,1,Ver dispositivos de bloque,1785414821480,1785414821492,12,PASS,ok
+vi,2,Ver tabla de particiones,1785414821503,1785414821519,16,FAIL,validation_failed
+vi,3,Crear disco virtual,1785414821529,1785414821545,16,PASS,ok
+vi,4,Formatear disco virtual,1785414821556,1785414821583,27,PASS,ok
+vi,5,Montar disco virtual,1785414821594,1785414821634,40,PASS,ok
+vi,6,Copiar archivos a disco,1785414821644,1785414821683,39,PASS,ok
+vi,7,Desmontar disco,1785414821694,1785414821730,36,PASS,ok
+vi,8,Ver espacio en disco,1785414821741,1785414821751,10,PASS,ok
+vi,9,Medir tamaño de directorio,1785414821762,1785414821773,11,PASS,ok
+vi,10,Limpiar disco virtual,1785414821782,1785414821793,11,PASS,ok
+vii,1,Verificar usuarios root,1785414821828,1785414821839,11,PASS,ok
+vii,2,Permisos archivos criticos,1785414821849,1785414821860,11,PASS,ok
+vii,3,Buscar usuarios sin contraseña,1785414821870,1785414821880,10,PASS,ok
+vii,4,Verificar sudoers,1785414821891,1785414821906,15,PASS,ok
+vii,5,Ver servicios abiertos,1785414821916,1785414821931,15,PASS,ok
+vii,6,Verificar firewall,1785414821940,1785414822000,60,PASS,ok
+vii,7,Generar claves SSH,1785414822011,1785414822155,144,PASS,ok
+vii,8,Permisos directorio SSH,1785414822165,1785414822176,11,PASS,ok
+vii,9,Ver intentos de login,1785414822186,1785414822199,13,PASS,ok
+vii,10,Encontrar archivos SUID,1785414822209,1785414822412,203,PASS,ok
+viii,1,Verificar Docker,1785414822445,1785414822461,16,PASS,ok
+viii,2,Ejecutar contenedor basico,1785414822470,1785414822487,17,FAIL,validation_failed
+viii,3,Listar contenedores,1785414822498,1785414822531,33,FAIL,validation_failed
+viii,4,Ejecutar comandos en contenedor,1785414822540,1785414822557,17,FAIL,validation_failed
+viii,5,Ver logs de contenedor,1785414822567,1785414824602,2035,FAIL,validation_failed
+viii,6,Inspeccionar contenedor,1785414824612,1785414824649,37,PASS,ok
+viii,7,Gestionar redes,1785414824659,1785414824695,36,FAIL,validation_failed
+viii,8,Gestionar volumenes,1785414824706,1785414824741,35,FAIL,validation_failed
+viii,9,Crear imagen con Dockerfile,1785414824752,1785414824791,39,FAIL,validation_failed
+viii,10,Limpiar recursos,1785414824801,1785414824849,48,FAIL,validation_failed
+ix,1,Verificar nginx,1785414824885,1785414824896,11,PASS,ok
+ix,2,Iniciar nginx,1785414824775,1785414824812,37,PASS,ok
+ix,3,Ver configuracion,1785414824823,1785414824834,11,PASS,ok
+ix,4,Crear pagina personalizada,1785414824845,1785414824872,27,PASS,ok
+ix,5,Configurar virtual host,1785414824882,1785414824893,11,PASS,ok
+ix,6,Ver logs de nginx,1785414824904,1785414824915,11,PASS,ok
+ix,7,Verificar sitios activos,1785414824925,1785414824937,12,PASS,ok
+ix,8,Probar configuracion,1785414824947,1785414824966,19,PASS,ok
+ix,9,Recargar nginx,1785414824976,1785414825000,24,PASS,ok
+ix,10,Detener nginx,1785414825011,1785414826035,1024,PASS,ok
+x,1,Verificar openssl,1785414826072,1785414826084,12,PASS,ok
+x,2,Generar clave privada,1785414826094,1785414826212,118,PASS,ok
+x,3,Verificar clave privada,1785414826226,1785414826424,198,PASS,ok
+x,4,Generar certificado autofirmado,1785414826435,1785414826527,92,PASS,ok
+x,5,Ver detalles del certificado,1785414826537,1785414826829,292,PASS,ok
+x,6,Verificar validez del certificado,1785414826839,1785414827129,290,PASS,ok
+x,7,Generar CSR,1785414827139,1785414827230,91,PASS,ok
+x,8,Ver detalles del CSR,1785414827240,1785414827740,500,PASS,ok
+x,9,Crear CA local,1785414827749,1785414827834,85,PASS,ok
+x,10,Firmar certificado con CA,1785414827845,1785414828059,214,PASS,ok
+xi,1,Verificar herramientas,1785414828092,1785414828103,11,PASS,ok
+xi,2,Crear backup con tar,1785414828113,1785414828124,11,PASS,ok
+xi,3,Verificar contenido del backup,1785414828134,1785414828147,13,FAIL,validation_failed
+xi,4,Restaurar backup,1785414828157,1785414828170,13,FAIL,validation_failed
+xi,5,Backup incremental,1785414828179,1785414828191,12,PASS,ok
+xi,6,Backup con rsync,1785414828200,1785414828347,147,PASS,ok
+xi,7,Verificar integridad con checksum,1785414828359,1785414828372,13,PASS,ok
+xi,8,Backup de configuracion,1785414828382,1785414828395,13,PASS,ok
+xi,9,Programar backup automatico,1785414828405,1785414828416,11,PASS,ok
+xi,10,Restaurar desde backup verificado,1785414828426,1785414828439,13,PASS,ok

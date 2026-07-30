@@ -41,12 +41,24 @@ mostrar_estado_retos() {
 
 ejecutar_evaluacion() {
     local unit=$1 total=$2; shift 2; local -a v=("$@") pass=0 fail=0 i
+    local _m_start="" _m_output="" _m_status=""
     echo ""; titulo "Evaluacion - ${unit}"
     for ((i=0; i<total; i++)); do
+        # Metrics: capture start time before validator
+        [ "${METRICS_INITIALIZED:-0}" -eq 1 ] && _m_start=$(_metrics_time_ms)
+
         if [ -n "${v[$i]}" ] && "${v[$i]}" >/dev/null 2>&1; then
             marcar_completado "$unit" "$((i+1))"; exito "Reto $((i+1)) completado"; pass=$((pass+1))
+            _m_status="PASS"
         else
             error "Reto $((i+1)) fallido"; fail=$((fail+1))
+            _m_status="FAIL"
+        fi
+
+        # Metrics: record after validator (silent, guard-checked)
+        if [ "${METRICS_INITIALIZED:-0}" -eq 1 ] && [ -n "$_m_start" ]; then
+            local _m_now=$(_metrics_time_ms)
+            metrics_record "$unit" "$((i+1))" "$_m_status" "$((_m_now - _m_start))" "" 2>/dev/null
         fi
     done
     echo ""; separador

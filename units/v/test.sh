@@ -89,4 +89,124 @@ challenge_names=(
     "Listar servicios activos"
 )
 
-ejecutar_evaluacion "$UNIT_NAME" "$TOTAL_RETOS" "${validators[@]}"
+reto1_info() {
+    separador
+    echo -e "${CYAN}Reto 1: Listar procesos${NC}"
+    echo ""
+    echo "Tu tarea es mostrar todos los procesos que se están ejecutando en el sistema."
+    echo "Utiliza el comando 'ps aux' para obtener la lista completa de procesos."
+    echo "Verifica que la salida contenga las columnas PID y USER."
+    echo ""
+    echo "Comando útil: ps aux"
+    separador
+}
+
+reto2_info() {
+    separador
+    echo -e "${CYAN}Reto 2: Buscar proceso especifico${NC}"
+    echo ""
+    echo "Debes buscar un proceso específico en la lista de procesos."
+    echo "Utiliza 'ps aux' combinado con 'grep' para filtrar el proceso que buscas."
+    echo "Recuerda excluir la línea del propio grep con 'grep -v grep'."
+    echo ""
+    echo "Comando útil: ps aux | grep bash | grep -v grep"
+    separador
+}
+
+reto3_info() {
+    separador
+    echo -e "${CYAN}Reto 3: Crear proceso en background${NC}"
+    echo ""
+    echo "Necesitas crear un proceso que se ejecute en segundo plano (background)."
+    echo "Agrega '&' al final de un comando para ejecutarlo en background."
+    echo "Puedes usar 'sleep 300 &' como ejemplo y luego verificar con 'ps aux'."
+    echo ""
+    echo "Comando útil: sleep 300 &"
+    separador
+}
+
+reto4_info() {
+    separador
+    echo -e "${CYAN}Reto 4: Matar un proceso${NC}"
+    echo ""
+    echo "Debes terminar un proceso que se esté ejecutando."
+    echo "Primero identifica el PID del proceso con 'ps aux'."
+    echo "Luego utiliza 'kill' seguido del PID para terminarlo."
+    echo "Verifica que el proceso ya no existe con 'kill -0 PID'."
+    echo ""
+    echo "Comando útil: kill <PID>"
+    separador
+}
+
+reto5_info() {
+    separador
+    echo -e "${CYAN}Reto 5: Top procesos por CPU${NC}"
+    echo ""
+    echo "Debes ordenar los procesos según su uso de CPU."
+    echo "Utiliza 'ps aux' con la opción '--sort=-%cpu' para ordenar de mayor a menor."
+    echo "Los procesos que más CPU consumen aparecerán primero."
+    echo ""
+    echo "Comando útil: ps aux --sort=-%cpu"
+    separador
+}
+
+reto6_info() {
+    separador
+    echo -e "${CYAN}Reto 6: Top procesos por memoria${NC}"
+    echo ""
+    echo "Debes ordenar los procesos según su uso de memoria RAM."
+    echo "Utiliza 'ps aux' con la opción '--sort=-%mem' para ordenar de mayor a menor."
+    echo "Los procesos que más memoria consumen aparecerán primero."
+    echo ""
+    echo "Comando útil: ps aux --sort=-%mem"
+    separador
+}
+
+reto7_info() {
+    separador
+    echo -e "${CYAN}Reto 7: Procesos por usuario${NC}"
+    echo ""
+    echo "Debes contar cuántos procesos tiene cada usuario."
+    echo "Utiliza 'ps aux' para listar todos los procesos."
+    echo "Luego extrae la columna de usuario con 'awk' y cuenta con 'sort | uniq -c'."
+    echo ""
+    echo "Comando útil: ps aux | awk '{print $1}' | sort | uniq -c"
+    separador
+}
+
+reto8_info() {
+    separador
+    echo -e "${CYAN}Reto 8: Crear cron job${NC}"
+    echo ""
+    echo "Debes programar una tarea automática utilizando cron."
+    echo "Edita tu crontab con 'crontab -e' o añade una línea directamente."
+    echo "Un cron job se compone de: minuto hora día mes día_semana comando."
+    echo "Ejemplo: '* * * * * echo test' ejecuta un comando cada minuto."
+    echo ""
+    echo "Comando útil: (crontab -l; echo '* * * * * comando') | crontab -"
+    separador
+}
+
+reto9_info() {
+    separador
+    echo -e "${CYAN}Reto 9: Verificar servicio${NC}"
+    echo ""
+    echo "Debes verificar el estado de un servicio del sistema."
+    echo "Utiliza 'systemctl status <servicio>' en sistemas con systemd."
+    echo "Si systemd no está disponible, usa 'service <servicio> status'."
+    echo ""
+    echo "Comando útil: systemctl status ssh"
+    separador
+}
+
+reto10_info() {
+    separador
+    echo -e "${CYAN}Reto 10: Listar servicios activos${NC}"
+    echo ""
+    echo "Debes listar todos los servicios que están ejecutándose actualmente."
+    echo "Utiliza 'systemctl list-units --type=service --state=running'."
+    echo "Si systemd no está disponible, puedes revisar procesos con 'ps aux'."
+    echo ""
+    echo "Comando útil: systemctl list-units --type=service --state=running"
+    separador
+}

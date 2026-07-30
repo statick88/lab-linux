@@ -105,4 +105,92 @@ challenge_names=(
     "Limpiar disco virtual"
 )
 
-ejecutar_evaluacion "$UNIT_NAME" "$TOTAL_RETOS" "${validators[@]}"
+reto1_info() {
+    separador
+    echo -e "${CYAN}Reto 1: Ver dispositivos de bloque${NC}"
+    echo ""
+    echo "Descubre los dispositivos de bloque disponibles en el sistema."
+    echo "Comando útil: lsblk"
+    separador
+}
+
+reto2_info() {
+    separador
+    echo -e "${CYAN}Reto 2: Ver tabla de particiones${NC}"
+    echo ""
+    echo "Consulta la tabla de particiones de los discos del sistema."
+    echo "Comando útil: sudo fdisk -l"
+    separador
+}
+
+reto3_info() {
+    separador
+    echo -e "${CYAN}Reto 3: Crear disco virtual${NC}"
+    echo ""
+    echo "Crea un archivo de disco virtual de al menos 5 MB usando dd."
+    echo "Comando útil: dd if=/dev/zero of=/tmp/disco_virtual.img bs=1M count=5"
+    separador
+}
+
+reto4_info() {
+    separador
+    echo -e "${CYAN}Reto 4: Formatear disco virtual${NC}"
+    echo ""
+    echo "Formatea el disco virtual creado con el sistema de archivos ext4."
+    echo "Comando útil: sudo mkfs.ext4 /tmp/disco_virtual.img"
+    separador
+}
+
+reto5_info() {
+    separador
+    echo -e "${CYAN}Reto 5: Montar disco virtual${NC}"
+    echo ""
+    echo "Monta el disco virtual en un directorio de tu sistema."
+    echo "Comandos útiles: mkdir /tmp/montaje && sudo mount /tmp/disco_virtual.img /tmp/montaje"
+    separador
+}
+
+reto6_info() {
+    separador
+    echo -e "${CYAN}Reto 6: Copiar archivos a disco${NC}"
+    echo ""
+    echo "Copia archivos al disco virtual montado."
+    echo "Comando útil: echo \"hola\" > /tmp/montaje/archivo.txt"
+    separador
+}
+
+reto7_info() {
+    separador
+    echo -e "${CYAN}Reto 7: Desmontar disco${NC}"
+    echo ""
+    echo "Desmonta el disco virtual de forma segura."
+    echo "Comando útil: sudo umount /tmp/montaje"
+    separador
+}
+
+reto8_info() {
+    separador
+    echo -e "${CYAN}Reto 8: Ver espacio en disco${NC}"
+    echo ""
+    echo "Consulta el espacio en disco disponible en el sistema."
+    echo "Comando útil: df -h"
+    separador
+}
+
+reto9_info() {
+    separador
+    echo -e "${CYAN}Reto 9: Medir tamaño de directorio${NC}"
+    echo ""
+    echo "Mide el tamaño que ocupa un directorio."
+    echo "Comando útil: du -sh ~/laboratorio/"
+    separador
+}
+
+reto10_info() {
+    separador
+    echo -e "${CYAN}Reto 10: Limpiar disco virtual${NC}"
+    echo ""
+    echo "Elimina el disco virtual que creaste para liberar espacio."
+    echo "Comando útil: rm ~/laboratorio/storage/disco_virtual.img"
+    separador
+}

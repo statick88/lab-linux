@@ -46,7 +46,7 @@ reto7() {
 
 reto8() {
     # Verificar que dpkg -S identifica el paquete de vim
-    dpkg -S /usr/bin/vim 2>/dev/null | grep -q "vim"
+    dpkg -S /usr/bin/vim.basic 2>/dev/null | grep -q "vim"
 }
 
 reto9() {
@@ -76,4 +76,92 @@ challenge_names=(
     "Eliminar paquete y configuracion"
 )
 
-ejecutar_evaluacion "$UNIT_NAME" "$TOTAL_RETOS" "${validators[@]}"
+reto1_info() {
+    separador
+    echo -e "${CYAN}Reto 1: Actualizar repositorios${NC}"
+    echo ""
+    echo "Actualiza los repositorios de paquetes del sistema."
+    echo "Comando útil: sudo apt-get update"
+    separador
+}
+
+reto2_info() {
+    separador
+    echo -e "${CYAN}Reto 2: Instalar vim${NC}"
+    echo ""
+    echo "Instala el editor de texto vim usando apt-get."
+    echo "Comando útil: sudo apt-get install -y vim"
+    separador
+}
+
+reto3_info() {
+    separador
+    echo -e "${CYAN}Reto 3: Instalar curl y tree${NC}"
+    echo ""
+    echo "Instala los paquetes curl y tree en una sola línea."
+    echo "Comando útil: sudo apt-get install -y curl tree"
+    separador
+}
+
+reto4_info() {
+    separador
+    echo -e "${CYAN}Reto 4: Consultar info de paquete${NC}"
+    echo ""
+    echo "Consulta la información detallada del paquete nginx."
+    echo "Comando útil: apt-cache show nginx"
+    separador
+}
+
+reto5_info() {
+    separador
+    echo -e "${CYAN}Reto 5: Buscar paquetes${NC}"
+    echo ""
+    echo "Busca paquetes relacionados con 'editor' en los repositorios."
+    echo "Comando útil: apt-cache search editor"
+    separador
+}
+
+reto6_info() {
+    separador
+    echo -e "${CYAN}Reto 6: Consultar estado con dpkg${NC}"
+    echo ""
+    echo "Consulta el estado de instalación del paquete vim con dpkg."
+    echo "Comando útil: dpkg -l vim"
+    separador
+}
+
+reto7_info() {
+    separador
+    echo -e "${CYAN}Reto 7: Listar archivos de paquete${NC}"
+    echo ""
+    echo "Lista todos los archivos que pertenecen al paquete curl."
+    echo "Comando útil: dpkg -L curl"
+    separador
+}
+
+reto8_info() {
+    separador
+    echo -e "${CYAN}Reto 8: Identificar paquete propietario${NC}"
+    echo ""
+    echo "Identifica qué paquete es dueño del archivo /usr/bin/vim."
+    echo "Comando útil: dpkg -S /usr/bin/vim"
+    separador
+}
+
+reto9_info() {
+    separador
+    echo -e "${CYAN}Reto 9: Eliminar paquete (conservar config)${NC}"
+    echo ""
+    echo "Elimina el paquete vim pero conserva su configuración."
+    echo "Comando útil: sudo apt-get remove vim"
+    separador
+}
+
+reto10_info() {
+    separador
+    echo -e "${CYAN}Reto 10: Eliminar paquete y configuración${NC}"
+    echo ""
+    echo "Elimina el paquete curl junto con toda su configuración."
+    echo "Comando útil: sudo apt-get purge curl"
+    separador
+}

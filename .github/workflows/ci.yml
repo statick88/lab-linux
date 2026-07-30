@@ -1,0 +1,51 @@
+name: Lab CI
+
+on:
+  push:
+    branches: [phase1/shared-library, main]
+  pull_request:
+    branches: [phase1/shared-library, main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t lab-linux .
+
+      - name: Run unit tests (Unit I)
+        run: |
+          docker run --rm \
+            -v $(pwd)/units/i:/opt/lab-units/i:ro \
+            lab-linux \
+            bash -c "bash /opt/lab-units/i/test.sh"
+        env:
+          FRASE_OCULTA: "Toda revolución comienza con un pass. Los administradores nunca duermen."
+
+      - name: Run shared/ scripts lint
+        run: |
+          for f in shared/*.sh; do
+            echo "Checking $f..."
+            bash -n "$f" || exit 1
+          done
+
+      - name: Verify menu.sh integration
+        run: |
+          docker run --rm lab-linux bash -c "source /shared/menu.sh && echo 'Menu OK'"
+
+      - name: Verify entrypoint sources menu
+        run: |
+          grep -q "source /shared/menu.sh" entrypoint.sh || {
+            echo "ERROR: entrypoint.sh does not source menu.sh"
+            exit 1
+          }
+
+      - name: Build and verify PDF generation
+        run: |
+          docker run --rm \
+            -v $(pwd)/resultados:/home/estudiante/laboratorio/resultados \
+            lab-linux \
+            bash -c "mkdir -p /home/estudiante/laboratorio/resultados && bash /generar-pdf.sh 1" || true

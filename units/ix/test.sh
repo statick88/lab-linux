@@ -80,4 +80,92 @@ challenge_names=(
     "Detener nginx"
 )
 
-ejecutar_evaluacion "$UNIT_NAME" "$TOTAL_RETOS" "${validators[@]}"
+reto1_info() {
+    separador
+    echo -e "${CYAN}Reto 1: Verificar nginx${NC}"
+    echo ""
+    echo "Verifica que nginx este instalado en el sistema."
+    echo "Comando util: nginx -v"
+    separador
+}
+
+reto2_info() {
+    separador
+    echo -e "${CYAN}Reto 2: Iniciar nginx${NC}"
+    echo ""
+    echo "Inicia el servidor nginx para que este ejecutandose."
+    echo "Comando util: sudo nginx o sudo service nginx start"
+    separador
+}
+
+reto3_info() {
+    separador
+    echo -e "${CYAN}Reto 3: Ver configuracion${NC}"
+    echo ""
+    echo "Explora el archivo de configuracion principal de nginx."
+    echo "Comando util: cat /etc/nginx/nginx.conf"
+    separador
+}
+
+reto4_info() {
+    separador
+    echo -e "${CYAN}Reto 4: Crear pagina personalizada${NC}"
+    echo ""
+    echo "Crea un archivo index.html en /var/www/html/ con contenido propio."
+    echo "Comando util: sudo nano /var/www/html/index.html"
+    separador
+}
+
+reto5_info() {
+    separador
+    echo -e "${CYAN}Reto 5: Configurar virtual host${NC}"
+    echo ""
+    echo "Crea un archivo de configuracion de virtual host en sites-available."
+    echo "Comando util: sudo nano /etc/nginx/sites-available/mi-sitio"
+    separador
+}
+
+reto6_info() {
+    separador
+    echo -e "${CYAN}Reto 6: Ver logs de nginx${NC}"
+    echo ""
+    echo "Verifica que existan los logs de acceso y error de nginx."
+    echo "Comando util: ls /var/log/nginx/"
+    separador
+}
+
+reto7_info() {
+    separador
+    echo -e "${CYAN}Reto 7: Verificar sitios activos${NC}"
+    echo ""
+    echo "Activa un sitio creando un enlace simbolico en sites-enabled."
+    echo "Comando util: sudo ln -s /etc/nginx/sites-available/mi-sitio /etc/nginx/sites-enabled/"
+    separador
+}
+
+reto8_info() {
+    separador
+    echo -e "${CYAN}Reto 8: Probar configuracion${NC}"
+    echo ""
+    echo "Prueba que la configuracion de nginx sea correcta antes de recargar."
+    echo "Comando util: sudo nginx -t"
+    separador
+}
+
+reto9_info() {
+    separador
+    echo -e "${CYAN}Reto 9: Recargar nginx${NC}"
+    echo ""
+    echo "Recarga nginx para aplicar los cambios sin detener el servicio."
+    echo "Comando util: sudo nginx -s reload"
+    separador
+}
+
+reto10_info() {
+    separador
+    echo -e "${CYAN}Reto 10: Detener nginx${NC}"
+    echo ""
+    echo "Detiene completamente el servidor nginx."
+    echo "Comando util: sudo nginx -s stop o sudo service nginx stop"
+    separador
+}
