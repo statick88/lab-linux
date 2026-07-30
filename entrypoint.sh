@@ -38,9 +38,12 @@ source /shared/menu.sh
 alias menu='mostrar_menu_principal'
 alias progreso='mostrar_progreso_global'
 alias unidad='bash /shared/unidad.sh'
+alias retos='bash /shared/retos-unidad.sh'
 alias retos-unidad='bash /shared/retos-unidad.sh'
+alias evaluar='bash /shared/eval.sh'
 alias evaluar-unidad='bash /shared/eval.sh'
 alias jugar='jugar_unidad'
+alias revelar-frase='mostrar_frase_unidad'
 EOF
 fi
 
