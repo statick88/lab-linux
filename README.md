@@ -4,17 +4,92 @@
 
 ---
 
-## Inicio Rápido
+## Instalación por Sistema Operativo
+
+### macOS
 
 ```bash
-git clone <url-del-repositorio>
+# Instalar Docker Desktop desde https://www.docker.com/products/docker-desktop/
+# O con Homebrew:
+brew install --cask docker
+
+# Clonar y ejecutar
+git clone https://github.com/statick88/lab-linux.git
 cd lab-linux
 docker compose build
 docker compose up -d
 docker compose exec lab-linux bash
 ```
 
-Dentro del contenedor: `menu` para navegar, `evaluar` para validar, `jugar` para modo interactivo.
+### Ubuntu / Debian
+
+```bash
+# Instalar Docker
+sudo apt update
+sudo apt install -y docker.io docker-compose-v2
+sudo usermod -aG docker $USER
+# Cerrar y abrir sesión para aplicar el grupo
+
+# Clonar y ejecutar
+git clone https://github.com/statick88/lab-linux.git
+cd lab-linux
+docker compose build
+docker compose up -d
+docker compose exec lab-linux bash
+```
+
+### Fedora
+
+```bash
+# Instalar Docker
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo systemctl start docker
+sudo usermod -aG docker $USER
+# Cerrar y abrir sesión para aplicar el grupo
+
+# Clonar y ejecutar
+git clone https://github.com/statick88/lab-linux.git
+cd lab-linux
+docker compose build
+docker compose up -d
+docker compose exec lab-linux bash
+```
+
+### Windows (WSL2)
+
+```bash
+# 1. Instalar WSL (PowerShell como Administrador):
+wsl --install
+# Reiniciar el equipo
+
+# 2. Dentro de WSL (Ubuntu por defecto), instalar Docker:
+sudo apt update
+sudo apt install -y docker.io docker-compose-v2
+sudo usermod -aG docker $USER
+# Cerrar y abrir sesión de WSL
+
+# 3. O instalar Docker Desktop for Windows:
+# https://www.docker.com/products/docker-desktop/
+# Habilitar WSL2 backend en Settings → General
+
+# 4. Clonar y ejecutar
+git clone https://github.com/statick88/lab-linux.git
+cd lab-linux
+docker compose build
+docker compose up -d
+docker compose exec lab-linux bash
+```
+
+### Dentro del contenedor
+
+```bash
+menu       # Menú principal con progreso global
+jugar      # Modo interactivo: instrucción → comando → verificar
+evaluar    # Ejecutar validación y mostrar puntaje
+ayuda      # Lista de comandos disponibles
+```
 
 ---
 
@@ -78,8 +153,10 @@ Usa `revelar-frase` tras completar todos los retos de una unidad.
 ## Prerrequisitos
 
 - Docker Engine 24+ o Docker Desktop
-- 4 GB RAM libres (DinD en Unidad VIII)
-- Linux / macOS / Windows con WSL2
+- 4 GB RAM libres (necesario para DinD en Unidad VIII)
+- Git
+
+> Ver instrucciones detalladas por sistema operativo en la sección de [Instalación](#instalación-por-sistema-operativo).
 
 ---
 
@@ -131,6 +208,16 @@ lab-linux/
 ├── propuesta-pedagogica.md # Documento del curso
 └── README.md               # Este archivo
 ```
+
+---
+
+## Contribuir
+
+Ver [CONTRIBUTING.md](CONTRIBUTING.md) para la estrategia de ramas y flujo de trabajo.
+
+- **`main`** — Solo código verificado y probado
+- **`develop`** — Mejoras y features en progreso
+- **`fix/*`** — Corrección de errores (se crean bajo demanda)
 
 ---
 
