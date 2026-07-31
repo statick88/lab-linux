@@ -5,6 +5,7 @@
 
 # Cargar biblioteca compartida
 source /shared/common.sh
+source /shared/menu.sh
 source /shared/interactive.sh
 
 # ─── Copiar unidades desde /opt si no existen ────────────────────────────────
@@ -28,6 +29,7 @@ fi
 # ─── Crear .bash_aliases para que cada nuevo shell tenga los comandos ────────
 cat > ~/.bash_aliases <<'ALIASES'
 source /shared/common.sh
+source /shared/menu.sh
 source /shared/interactive.sh
 
 alias menu='menu_interactivo'
