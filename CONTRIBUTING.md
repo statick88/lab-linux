@@ -10,17 +10,18 @@ main          ← Solo código verificado y probado (releases)
   └── fix/*  ← Corrección de errores específicos (se crean bajo demanda)
 ```
 
-### Reglas
+| Rama | Regla | Ejemplo |
+|------|-------|---------|
+| `main` | Solo merge desde `develop` o `fix/*`. Nunca push directo. | — |
+| `develop` | Features y mejoras en progreso. PR contra `main` cuando está listo. | `feat: agregar reto de awk` |
+| `fix/<nombre>` | Se crea desde `main`, se corrifica, se mergea, se elimina. | `fix/permisos-reto-5` |
 
-1. **`main`** — Solo se actualiza mediante merge desde `develop` o `fix/*` cuando el código está verificado y pasa CI. Nunca se hace push directo.
+---
 
-2. **`develop`** — Se crea cuando hay una mejora o feature nueva. Se hace push y se abre PR contra `main` cuando está listo. CI debe pasar antes de mergear.
+## Flujo de Trabajo
 
-3. **`fix/<descripción>`** — Se crea desde `main` cuando surge un bug. Se corrige, se prueba, se abre PR contra `main`. Una vez mergear, la rama se elimina.
+### Feature nueva
 
-### Flujo de Trabajo
-
-#### Mejora o feature nueva
 ```bash
 git checkout develop
 git pull
@@ -30,7 +31,8 @@ git push origin develop
 # Abrir PR develop → main
 ```
 
-#### Corrección de bug
+### Corrección de bug
+
 ```bash
 git checkout main
 git pull
@@ -42,7 +44,9 @@ git push origin fix/nombre-del-bug
 # Una vez mergeado, eliminar la rama
 ```
 
-### Requisitos antes de mergear a `main`
+---
+
+## Checklist antes de mergear a `main`
 
 - [ ] CI pasa (GitHub Actions)
 - [ ] Retos existentes siguen funcionando
@@ -53,11 +57,8 @@ git push origin fix/nombre-del-bug
 
 ## Desarrollo Local
 
-### Prerrequisitos
-- Docker Engine 24+ o Docker Desktop
-- 4 GB RAM libres
-
 ### Setup
+
 ```bash
 git clone https://github.com/statick88/lab-linux.git
 cd lab-linux
@@ -67,13 +68,9 @@ docker compose exec lab-linux bash
 ```
 
 ### Comandos útiles
-```bash
-# Ver logs
-docker compose logs -f lab-linux
 
-# Reconstruir tras cambios en Dockerfile/entrypoint
-docker compose down && docker compose build --no-cache lab-linux && docker compose up -d
-
-# Ejecutar tests
-docker compose exec lab-linux bash /shared/test_runner.sh
-```
+| Comando | Qué hace |
+|---------|----------|
+| `docker compose logs -f lab-linux` | Ver logs en tiempo real |
+| `docker compose down && docker compose build --no-cache lab-linux && docker compose up -d` | Reconstruir tras cambios en Dockerfile/entrypoint |
+| `docker compose exec lab-linux bash /shared/test_runner.sh` | Ejecutar tests |

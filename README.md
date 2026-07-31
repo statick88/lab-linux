@@ -4,91 +4,125 @@
 
 ---
 
+## Quick Start
+
+```bash
+git clone https://github.com/statick88/lab-linux.git
+cd lab-linux
+docker compose build
+docker compose up -d
+docker compose exec lab-linux bash
+```
+
+Dentro del contenedor: `menu` · `jugar` · `retos` · `evaluar` · `progreso`
+
+---
+
 ## Instalación por Sistema Operativo
 
-### macOS
+<details>
+<summary>macOS</summary>
 
 ```bash
-# Instalar Docker Desktop desde https://www.docker.com/products/docker-desktop/
-# O con Homebrew:
 brew install --cask docker
-
-# Clonar y ejecutar
 git clone https://github.com/statick88/lab-linux.git
 cd lab-linux
-docker compose build
-docker compose up -d
+docker compose build && docker compose up -d
 docker compose exec lab-linux bash
 ```
+</details>
 
-### Ubuntu / Debian
+<details>
+<summary>Ubuntu / Debian</summary>
 
 ```bash
-# Instalar Docker
-sudo apt update
-sudo apt install -y docker.io docker-compose-v2
+sudo apt update && sudo apt install -y docker.io docker-compose-v2
 sudo usermod -aG docker $USER
 # Cerrar y abrir sesión para aplicar el grupo
-
-# Clonar y ejecutar
 git clone https://github.com/statick88/lab-linux.git
 cd lab-linux
-docker compose build
-docker compose up -d
+docker compose build && docker compose up -d
 docker compose exec lab-linux bash
 ```
+</details>
 
-### Fedora
+<details>
+<summary>Fedora</summary>
 
 ```bash
-# Instalar Docker
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-sudo systemctl start docker
-sudo usermod -aG docker $USER
+sudo systemctl start docker && sudo usermod -aG docker $USER
 # Cerrar y abrir sesión para aplicar el grupo
-
-# Clonar y ejecutar
 git clone https://github.com/statick88/lab-linux.git
 cd lab-linux
-docker compose build
-docker compose up -d
+docker compose build && docker compose up -d
 docker compose exec lab-linux bash
 ```
+</details>
 
-### Windows (WSL2)
+<details>
+<summary>Windows (WSL2)</summary>
 
 ```bash
-# 1. Instalar WSL (PowerShell como Administrador):
+# PowerShell como Administrador:
 wsl --install
 # Reiniciar el equipo
 
-# 2. Dentro de WSL (Ubuntu por defecto), instalar Docker:
-sudo apt update
-sudo apt install -y docker.io docker-compose-v2
+# Dentro de WSL:
+sudo apt update && sudo apt install -y docker.io docker-compose-v2
 sudo usermod -aG docker $USER
 # Cerrar y abrir sesión de WSL
 
-# 3. O instalar Docker Desktop for Windows:
-# https://www.docker.com/products/docker-desktop/
-# Habilitar WSL2 backend en Settings → General
-
-# 4. Clonar y ejecutar
 git clone https://github.com/statick88/lab-linux.git
 cd lab-linux
-docker compose build
-docker compose up -d
+docker compose build && docker compose up -d
 docker compose exec lab-linux bash
 ```
+</details>
 
-### Dentro del contenedor
+---
 
-```bash
-menu       # Menú principal con progreso global
-jugar      # Modo interactivo: instrucción → comando → verificar
-evaluar    # Ejecutar validación y mostrar puntaje
-ayuda      # Lista de comandos disponibles
+## Comandos del Contenedor
+
+| Comando | Qué hace | Cómo se accede |
+|---------|----------|----------------|
+| `menu` | Menú principal con progreso global | Alias en .bash_aliases |
+| `jugar` | Modo interactivo: instrucción → comando → verificar | Alias en .bash_aliases |
+| `unidad <n>` | Seleccionar unidad (ej: `unidad 3`) | Alias en .bash_aliases |
+| `retos` | Ver retos de la unidad actual | Alias en .bash_aliases |
+| `evaluar` | Ejecutar validación y mostrar puntaje | Alias en .bash_aliases |
+| `revelar-frase` | Revelar palabra al completar una unidad | Alias en .bash_aliases |
+| `progreso` | Ver barra de progreso global | Alias en .bash_aliases |
+| `ayuda` | Lista de comandos disponibles | Función en menu.sh |
+| `~/bin/lab` | Lanza el menú interactivo desde cualquier ruta | Script en ~/bin/ |
+
+---
+
+## Flujo por Unidad
+
+```
+Seleccionar → Instrucciones → Resolver → Validar → Revelar palabra
+    │              │              │           │            │
+    ▼              ▼              ▼           ▼            ▼
+unidad 2       retos        (terminal)    evaluar    revelar-frase
+```
+
+1. **Seleccionar** → `unidad 2` cambia la unidad activa
+2. **Instrucciones** → `retos` muestra pistas progresivas
+3. **Resolver** → ejecuta comandos en la terminal
+4. **Validar** → `evaluar` muestra ✓ PASS / ✗ FAIL por reto
+5. **Frase** → `revelar-frase` revela la palabra oculta
+
+---
+
+## Frase Secreta
+
+Cada unidad completada revela una palabra. Completa las 11 para descubrir la frase:
+
+```
+_ _ _ _ _ _ _ _ _ _ _
 ```
 
 ---
@@ -113,53 +147,6 @@ ayuda      # Lista de comandos disponibles
 
 ---
 
-## Comandos del Contenedor
-
-| Comando | Qué hace |
-|---------|----------|
-| `menu` | Menú principal con progreso global |
-| `jugar` | Modo interactivo: instrucción → comando → verificar |
-| `unidad <n>` | Seleccionar unidad (ej: `unidad 3`) |
-| `retos` | Ver retos de la unidad actual |
-| `evaluar` | Ejecutar validación y mostrar puntaje |
-| `revelar-frase` | Revelar palabra al completar una unidad |
-| `progreso` | Ver barra de progreso global |
-| `ayuda` | Lista de comandos disponibles |
-
----
-
-## Flujo por Unidad
-
-1. **Seleccionar** → `unidad 2`
-2. **Instrucciones** → `retos` muestra pistas progresivas
-3. **Resolver** → ejecuta comandos en la terminal
-4. **Validar** → `evaluar` muestra ✓ PASS / ✗ FAIL por reto
-5. **Frase** → `revelar-frase` revela la palabra oculta
-
----
-
-## Frase Secreta
-
-Cada unidad completada revela una palabra. Completa las 11 para descubrir la frase:
-
-```
-_ _ _ _ _ _ _ _ _ _ _
-```
-
-Usa `revelar-frase` tras completar todos los retos de una unidad.
-
----
-
-## Prerrequisitos
-
-- Docker Engine 24+ o Docker Desktop
-- 4 GB RAM libres (necesario para DinD en Unidad VIII)
-- Git
-
-> Ver instrucciones detalladas por sistema operativo en la sección de [Instalación](#instalación-por-sistema-operativo).
-
----
-
 ## Solución de Problemas
 
 | Problema | Solución |
@@ -171,28 +158,21 @@ Usa `revelar-frase` tras completar todos los retos de una unidad.
 
 ---
 
-## Novedades v1.1.0
-
-- **Comandos interactivos funcionan en cualquier shell**: `menu`, `jugar`, `retos`, `evaluar`, `revelar-frase` ahora usan funciones cargadas desde `shared/interactive.sh` vía `.bash_aliases`
-- **Autocompletado Tab habilitado**: instalado `bash-completion` en la imagen base
-- **Instrucciones paso a paso claras**: Unidad III (Scripting) muestra comandos en líneas separadas para evitar errores de copiado
-- **Validadores robustos**: reto 5 (Permisos 755) ahora verifica el archivo `archivo` del estudiante, no un archivo temporal interno
-
----
-
 ## Arquitectura
 
 ```
 lab-linux/
 ├── Dockerfile              # Ubuntu 24.04 + usuario estudiante
 ├── docker-compose.yml      # Volumen persistente lab-data
-├── entrypoint.sh           # Aliases y banner
+├── entrypoint.sh           # Sourcing, aliases y banner
 ├── shared/                 # Librería compartida
-│   ├── common.sh           # Funciones base, FRASES_OCULTAS
-│   ├── menu.sh             # Menús interactivos
+│   ├── common.sh           # Funciones base, FRASES_OCULTAS, carga todos los módulos
+│   ├── menu.sh             # Menú principal y navegación
+│   ├── interactive.sh      # Funciones interactivas (jugar, evaluar, retos)
 │   ├── eval.sh             # Sistema de evaluación
+│   ├── colors.sh           # Colores de terminal
 │   ├── banner.sh           # Banners visuales
-│   └── utils.sh            # Utilidades
+│   └── metrics.sh          # Métricas de progreso
 ├── units/                  # 11 unidades (I–XI)
 │   ├── i/                  # Fundamentos Linux/WSL2
 │   ├── ii/                 # Paquetes
@@ -209,15 +189,34 @@ lab-linux/
 └── README.md               # Este archivo
 ```
 
+### Cadena de Sourcing
+
+```
+entrypoint.sh
+  └→ common.sh → colors.sh, eval.sh, metrics.sh, menu.sh, banner.sh
+  └→ interactive.sh
+  └→ crea .bash_aliases + ~/bin/lab
+  └→ banner_bienvenida
+  └→ exec bash -i
+
+Cada shell nueva:
+  .bashrc → .bash_aliases → common.sh + interactive.sh → funciones disponibles
+```
+
+---
+
+## Novedades v1.1.0
+
+- **Comandos interactivos funcionan en cualquier shell**: `menu`, `jugar`, `retos`, `evaluar`, `revelar-frase` ahora usan funciones cargadas desde `shared/interactive.sh` vía `.bash_aliases`
+- **Autocompletado Tab habilitado**: instalado `bash-completion` en la imagen base
+- **Instrucciones paso a paso claras**: Unidad III (Scripting) muestra comandos en líneas separadas para evitar errores de copiado
+- **Validadores robustos**: reto 5 (Permisos 755) ahora verifica el archivo `archivo` del estudiante, no un archivo temporal interno
+
 ---
 
 ## Contribuir
 
 Ver [CONTRIBUTING.md](CONTRIBUTING.md) para la estrategia de ramas y flujo de trabajo.
-
-- **`main`** — Solo código verificado y probado
-- **`develop`** — Mejoras y features en progreso
-- **`fix/*`** — Corrección de errores (se crean bajo demanda)
 
 ---
 

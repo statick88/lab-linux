@@ -3,9 +3,8 @@
 # entrypoint.sh - Punto de entrada del contenedor del laboratorio
 # =============================================================================
 
-# Cargar biblioteca compartida
+# Cargar biblioteca compartida (common.sh ya carga colors, eval, metrics, menu, banner)
 source /shared/common.sh
-source /shared/menu.sh
 source /shared/interactive.sh
 
 # ─── Copiar unidades desde /opt si no existen ────────────────────────────────
@@ -28,30 +27,31 @@ fi
 
 # ─── Crear .bash_aliases para que cada nuevo shell tenga los comandos ────────
 cat > ~/.bash_aliases <<'ALIASES'
+# Cargar funciones del laboratorio (common.sh incluye todo el chain)
 source /shared/common.sh
-source /shared/menu.sh
 source /shared/interactive.sh
 
+# Comandos principales
 alias menu='menu_interactivo'
 alias jugar='jugar_interactivo'
 alias retos='ver_retos_unidad'
 alias evaluar='evaluar_interactivo'
+alias progreso='mostrar_progreso_global'
+alias pista='dar_pista'
+
+# Frase secreta
 alias revelar-frase='ver_frase'
 alias s='ver_frase'
-alias progreso='mostrar_progreso_global'
 ALIASES
 
 # ─── Script ~/bin/lab ────────────────────────────────────────────────────────
 mkdir -p ~/bin
 cat > ~/bin/lab <<'SCRIPT'
 #!/bin/bash
+# ~/bin/lab - Acceso rápido al laboratorio
 source /shared/common.sh
 source /shared/interactive.sh
-echo ""
-echo "  📋 Laboratorio de Linux Server Admin"
-echo ""
-echo "  Comandos: menu | jugar | retos | evaluar | revelar-frase | progreso"
-echo ""
+menu_interactivo
 SCRIPT
 chmod 755 ~/bin/lab
 export PATH="$HOME/bin:$PATH"
