@@ -24,7 +24,9 @@ contar_completados() {
 }
 
 mostrar_estado_retos() {
-    local unit=$1 -n retos_ref=$2 total=${#retos_ref[@]} i
+    local unit="$1" total i
+    local -n retos_ref="$2"
+    total=${#retos_ref[@]}
     completados=$(contar_completados "$unit" "$total")
     echo -e "\n${CYAN_B}Estado de retos:${RESET}"
     separador

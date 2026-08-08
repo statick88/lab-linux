@@ -24,7 +24,7 @@ reto3() {
     # Verificar que puede crear archivo de disco virtual
     dd if=/dev/zero of=/tmp/test_disk.img bs=1M count=5 2>/dev/null
     [ -f "/tmp/test_disk.img" ]
-    size=$(stat -f%z /tmp/test_disk.img 2>/dev/null || stat -c%s /tmp/test_disk.img 2>/dev/null)
+    size=$(stat -c%s /tmp/test_disk.img 2>/dev/null || stat -f%z /tmp/test_disk.img 2>/dev/null)
     [ "$size" -gt 4000000 ]
     rm -f /tmp/test_disk.img
 }
