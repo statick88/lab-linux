@@ -36,10 +36,14 @@ jobs:
         run: |
           docker run --rm lab-linux bash -c "source /shared/menu.sh && echo 'Menu OK'"
 
-      - name: Verify entrypoint sources menu
+      - name: Verify entrypoint sources common (transitively menu)
         run: |
-          grep -q "source /shared/menu.sh" entrypoint.sh || {
-            echo "ERROR: entrypoint.sh does not source menu.sh"
+          grep -q "source /shared/common.sh" entrypoint.sh || {
+            echo "ERROR: entrypoint.sh does not source common.sh"
+            exit 1
+          }
+          grep -q "source.*menu.sh" shared/common.sh || {
+            echo "ERROR: common.sh does not source menu.sh"
             exit 1
           }
 
