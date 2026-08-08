@@ -3,6 +3,8 @@
 # Sources each test.sh independently to get validator functions
 # Applies per-reto state simulation via student-setup.sh
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 RESULTS_DIR="${METRICS_OUTPUT_DIR:-/tmp/metrics_results}"
 CSV_FILE="$RESULTS_DIR/reto_metrics.csv"
 mkdir -p "$RESULTS_DIR"
@@ -59,7 +61,7 @@ echo "Start time: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 OVERALL_START=$(time_ms)
 
 # Source student-setup.sh (per-reto state simulation)
-SETUP_SCRIPT="/opt/lab-units/student-setup.sh"
+SETUP_SCRIPT="${SCRIPT_DIR}/student-setup.sh"
 if [ -f "$SETUP_SCRIPT" ]; then
     source "$SETUP_SCRIPT"
     echo "  ✔ student-setup.sh loaded"
@@ -77,7 +79,7 @@ for unit in "${UNITS[@]}"; do
     
     # Source this unit's test.sh to get validator functions
     unset -f reto1 reto2 reto3 reto4 reto5 reto6 reto7 reto8 reto9 reto10
-    source "/opt/lab-units/$unit/test.sh"
+    source "${SCRIPT_DIR}/units/$unit/test.sh"
     set +e  # test.sh sets -e; we need it OFF for the test harness
     
     for ((i=1; i<=10; i++)); do

@@ -124,10 +124,10 @@ EOF
         chmod +x "$dir/contar_while.sh"
     fi
 
-    if [ ! -f "$dir/sumar.sh" ] || ! head -20 "$dir/sumar.sh" 2>/dev/null | grep -q "function"; then
+    if [ ! -f "$dir/sumar.sh" ] || ! head -20 "$dir/sumar.sh" 2>/dev/null | grep -q "sumar()"; then
         cat > "$dir/sumar.sh" << 'EOF'
 #!/bin/bash
-function sumar {
+sumar() {
     echo $(( $1 + $2 ))
 }
 echo "Suma: $(sumar 3 5)"
@@ -182,6 +182,45 @@ fi
 echo "Script completado"
 EOF
         chmod +x "$dir/color_favorito.sh"
+    fi
+
+    if [ ! -f "$dir/saludo.sh" ] || ! head -20 "$dir/saludo.sh" 2>/dev/null | grep -q '\$1'; then
+        cat > "$dir/saludo.sh" << 'EOF'
+#!/bin/bash
+if [ $# -eq 0 ]; then
+    echo "Uso: ./saludo.sh nombre"
+    exit 1
+fi
+echo "Hola, $1"
+EOF
+        chmod +x "$dir/saludo.sh"
+    fi
+
+    if [ ! -f "$dir/registrar.sh" ] || ! head -20 "$dir/registrar.sh" 2>/dev/null | grep -q ">"; then
+        cat > "$dir/registrar.sh" << 'EOF'
+#!/bin/bash
+fecha=$(date)
+echo "Fecha: $fecha" > registro.txt
+echo "Log guardado en registro.txt"
+EOF
+        chmod +x "$dir/registrar.sh"
+    fi
+
+    if [ ! -f "$dir/verificar_archivo.sh" ] || ! head -20 "$dir/verificar_archivo.sh" 2>/dev/null | grep -q "\-f"; then
+        cat > "$dir/verificar_archivo.sh" << 'EOF'
+#!/bin/bash
+if [ $# -eq 0 ]; then
+    echo "Uso: ./verificar_archivo.sh archivo"
+    exit 1
+fi
+if [ -f "$1" ]; then
+    echo "El archivo existe:"
+    ls -la "$1"
+else
+    echo "Error: El archivo '$1' no existe"
+fi
+EOF
+        chmod +x "$dir/verificar_archivo.sh"
     fi
 }
 

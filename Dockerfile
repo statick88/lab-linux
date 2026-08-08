@@ -36,6 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     net-tools \
     iproute2 \
     fdisk \
+    python3 \
     docker.io \
     pandoc \
     && apt-get clean \
