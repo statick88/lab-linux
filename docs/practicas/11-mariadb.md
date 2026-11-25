@@ -22,20 +22,18 @@ mejora de una consulta con evidencia medible.
 ## 1. Preparar un laboratorio desechable
 
 Requisitos: Docker instalado en tu equipo y un puerto local disponible. Estas
-órdenes crean una red y volumen con nombres exclusivos para esta práctica; no
-usan una instancia MariaDB preexistente.
+órdenes crean un contenedor nuevo con un volumen anónimo gestionado por Docker;
+no reutilizan una instancia, datos MariaDB ni otros recursos preexistentes.
 
 ```bash
 mkdir -p "$HOME/mariadb-xi-lab" && cd "$HOME/mariadb-xi-lab"
 chmod 700 .
 export MARIADB_ROOT_PASSWORD='cambia-esta-clave-solo-local'
-docker network create xi-mariadb-net
-docker volume create xi-mariadb-data
-docker run -d --name xi-mariadb --network xi-mariadb-net \
+export MARIADB_CONTAINER="$(docker run -d \
   -e MARIADB_ROOT_PASSWORD="$MARIADB_ROOT_PASSWORD" \
-  -v xi-mariadb-data:/var/lib/mysql \
-  mariadb:11
-until docker exec xi-mariadb mariadb-admin ping -uroot \
+  -v /var/lib/mysql \
+  mariadb:11)"
+until docker exec "$MARIADB_CONTAINER" mariadb-admin ping -uroot \
   -p"$MARIADB_ROOT_PASSWORD" --silent; do sleep 2; done
 ```
 
@@ -44,13 +42,13 @@ expongas el puerto del contenedor: todos los clientes de esta práctica se
 ejecutan con `docker exec`. Confirma el aislamiento:
 
 ```bash
-docker ps --filter name=xi-mariadb --format 'table {{.Names}}\t{{.Status}}'
-docker exec xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" \
+docker ps --filter "id=$MARIADB_CONTAINER" --format 'table {{.ID}}\t{{.Status}}'
+docker exec "$MARIADB_CONTAINER" mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" \
   -e 'SELECT @@hostname AS contenedor, @@version AS version;'
 ```
 
-**Evidencia 1:** guarda la salida, mostrando el nombre `xi-mariadb` y la
-versión, sin incluir la contraseña.
+**Evidencia 1:** guarda la salida, mostrando el identificador del contenedor y
+la versión, sin incluir la contraseña.
 
 ## 2. Crear esquema y filas sintéticas
 
@@ -58,7 +56,6 @@ Crea el archivo `01-datos.sql` con este contenido. Los nombres, correos,
 importes y pedidos son ficticios.
 
 ```sql
-DROP DATABASE IF EXISTS ventas_xi;
 CREATE DATABASE ventas_xi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE ventas_xi;
 
@@ -96,10 +93,10 @@ INSERT INTO pedidos (cliente_id, creado_en, total, estado) VALUES
 Cárgalo y verifica tanto el número de filas como la integridad referencial:
 
 ```bash
-docker exec -i xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" < 01-datos.sql
-docker exec xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -N -e \
+docker exec -i "$MARIADB_CONTAINER" mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" < 01-datos.sql
+docker exec "$MARIADB_CONTAINER" mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -N -e \
   'SELECT COUNT(*) AS clientes FROM ventas_xi.clientes; SELECT COUNT(*) AS pedidos FROM ventas_xi.pedidos;'
-docker exec xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e \
+docker exec "$MARIADB_CONTAINER" mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e \
   'SELECT p.id, c.nombre, p.total FROM ventas_xi.pedidos p JOIN ventas_xi.clientes c ON c.id=p.cliente_id ORDER BY p.id;'
 ```
 
@@ -114,7 +111,7 @@ No uses `GRANT ALL`, no uses `%` como host y no reutilices esta clave fuera del
 contenedor.
 
 ```bash
-docker exec xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e "
+docker exec "$MARIADB_CONTAINER" mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e "
   CREATE USER IF NOT EXISTS 'consulta_xi'@'localhost' IDENTIFIED BY 'solo-lab-xi';
   GRANT SELECT ON ventas_xi.* TO 'consulta_xi'@'localhost';
   SHOW GRANTS FOR 'consulta_xi'@'localhost';"
@@ -124,9 +121,9 @@ Comprueba el permiso permitido y uno prohibido. El segundo comando **debe
 fallar** con acceso denegado; ese fallo es la evidencia de mínimo privilegio.
 
 ```bash
-docker exec xi-mariadb mariadb -uconsulta_xi -psolo-lab-xi -e \
+docker exec "$MARIADB_CONTAINER" mariadb -uconsulta_xi -psolo-lab-xi -e \
   'SELECT COUNT(*) FROM ventas_xi.pedidos;'
-docker exec xi-mariadb mariadb -uconsulta_xi -psolo-lab-xi -e \
+docker exec "$MARIADB_CONTAINER" mariadb -uconsulta_xi -psolo-lab-xi -e \
   "INSERT INTO ventas_xi.clientes(nombre, correo, ciudad) VALUES ('Prueba', 'prueba@example.test', 'Lugo');"
 ```
 
@@ -139,7 +136,7 @@ Genera un volcado lógico local. El archivo contiene datos de laboratorio, pero
 trátalo como información sensible: deja sus permisos en `600` y no lo subas.
 
 ```bash
-docker exec xi-mariadb mariadb-dump -uroot -p"$MARIADB_ROOT_PASSWORD" \
+docker exec "$MARIADB_CONTAINER" mariadb-dump -uroot -p"$MARIADB_ROOT_PASSWORD" \
   --databases --single-transaction --routines --events ventas_xi > ventas_xi.sql
 chmod 600 ventas_xi.sql
 grep -E '^(CREATE TABLE|INSERT INTO)' ventas_xi.sql | head -n 4
@@ -150,11 +147,11 @@ flujo de entrada y compara conteos. No ejecutes la restauración sobre
 `ventas_xi`: el destino es deliberadamente `ventas_xi_restaurada`.
 
 ```bash
-docker exec xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e \
+docker exec "$MARIADB_CONTAINER" mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e \
   'CREATE DATABASE ventas_xi_restaurada CHARACTER SET utf8mb4;'
 sed 's/`ventas_xi`/`ventas_xi_restaurada`/g' ventas_xi.sql | \
-  docker exec -i xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD"
-docker exec xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e '
+  docker exec -i "$MARIADB_CONTAINER" mariadb -uroot -p"$MARIADB_ROOT_PASSWORD"
+docker exec "$MARIADB_CONTAINER" mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e '
   SELECT "origen" AS copia, COUNT(*) AS pedidos FROM ventas_xi.pedidos
   UNION ALL
   SELECT "restaurada", COUNT(*) FROM ventas_xi_restaurada.pedidos;'
@@ -171,7 +168,7 @@ no modifica los datos del respaldo ya creado. Después observa el plan sin
 `EXPLAIN FORMAT=JSON`:
 
 ```bash
-docker exec xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e '
+docker exec "$MARIADB_CONTAINER" mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e '
   INSERT INTO ventas_xi.pedidos (cliente_id, creado_en, total, estado)
   SELECT 1 + MOD(n, 4), DATE_ADD("2024-01-01", INTERVAL n DAY),
          10.00 + MOD(n, 90), "pagado"
@@ -185,7 +182,7 @@ docker exec xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e '
   ANALYZE TABLE ventas_xi.pedidos;
   EXPLAIN FORMAT=JSON SELECT id, total FROM ventas_xi.pedidos
   WHERE cliente_id = 3 AND creado_en >= "2026-01-01";'
-docker exec xi-mariadb mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e '
+docker exec "$MARIADB_CONTAINER" mariadb -uroot -p"$MARIADB_ROOT_PASSWORD" -e '
   CREATE INDEX idx_pedidos_cliente_fecha ON ventas_xi.pedidos (cliente_id, creado_en);
   ANALYZE TABLE ventas_xi.pedidos;
   EXPLAIN FORMAT=JSON SELECT id, total FROM ventas_xi.pedidos
@@ -218,13 +215,11 @@ de filas, no una afirmación de rendimiento en producción.
 ## Limpieza obligatoria
 
 Al terminar y tras guardar sólo la evidencia necesaria, elimina el entorno
-desechable. Verifica los nombres antes de ejecutar estas órdenes.
+desechable. Verifica el identificador del contenedor antes de ejecutar estas órdenes.
 
 ```bash
-docker rm -f xi-mariadb
-docker volume rm xi-mariadb-data
-docker network rm xi-mariadb-net
-unset MARIADB_ROOT_PASSWORD
+docker rm -fv "$MARIADB_CONTAINER"
+unset MARIADB_ROOT_PASSWORD MARIADB_CONTAINER
 ```
 
 El directorio `$HOME/mariadb-xi-lab` y `ventas_xi.sql` siguen siendo locales:
