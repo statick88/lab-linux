@@ -22,7 +22,7 @@ done
 done
 [ -f "$NGINX" ] && for text in \
     'listen 127.0.0.1:8081;' 'proxy_pass http://127.0.0.1:8080;' \
-    'proxy_set_header Host $host;' 'nginx -t' 'access_log' 'error_log' 'Rúbrica'; do
+    'proxy_set_header Host $host;' 'add_header X-Lab-Proxy "TU_NOMBRE";' 'nginx -t' 'access_log' 'error_log' 'Rúbrica'; do
     need "$NGINX" "$text" "X: $text"
 done
 if [ "$FAILURES" -eq 0 ]; then
