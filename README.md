@@ -1,6 +1,8 @@
 # Laboratorio Interactivo: Administración de Servidores Linux
 
-11 unidades progresivas · 110 retos prácticos · evaluación automática · frase secreta oculta. Todo corre en Docker.
+11 unidades internas progresivas · 110 retos prácticos · evaluación automática · frase secreta oculta. Todo corre en Docker.
+
+> El conteo interno I–XI no equivale por sí solo a las doce unidades oficiales. Consulta el [mapa curricular y de brechas](docs/curriculo.md) para la correspondencia, evidencia y entornos.
 
 > **⚠️ ADVERTENCIA DE SEGURIDAD — usa una VM dedicada y desechable.** No ejecutes este laboratorio en un equipo con datos del host, montajes del host o un demonio Docker compartido. El Compose publicado ejecuta el contenedor con privilegios y monta `/var/run/docker.sock`: no es un sandbox ni Docker-in-Docker. Antes de iniciar, asegúrate de que la VM no contenga datos que debas conservar y que su daemon Docker no sea usado por otras cargas.
 
@@ -60,18 +62,18 @@ _ _ _ _ _ _ _ _ _ _ _
 | Unidad | Tema | Retos |
 |--------|------|:-----:|
 | I | Fundamentos de Linux y WSL2 | 10 |
-| II | Gestión de Paquetes y APT | 10 |
+| II | Gestión de paquetes y APT | 10 |
 | III | Scripting Bash | 10 |
-| IV | Gestión de Usuarios y SSH | 10 |
-| V | Gestión de Procesos y systemd | 10 |
-| VI | Almacenamiento y LVM | 10 |
-| VII | Hardening del Sistema | 10 |
-| VIII | Contenedores con Docker | 10 |
-| IX | Servidor Web con Nginx | 10 |
-| X | Certificados SSL y HTTPS | 10 |
-| XI | Docker Compose y Bases de Datos | 10 |
+| IV | Gestión de usuarios | 10 |
+| V | Gestión de procesos y servicios | 10 |
+| VI | Almacenamiento | 10 |
+| VII | Hardening del sistema | 10 |
+| VIII | Contenedores con Docker (complementaria) | 10 |
+| IX | Servidor web con Nginx | 10 |
+| X | Certificados TLS/SSL (complementaria) | 10 |
+| XI | Respaldo y recuperación de archivos (complementaria) | 10 |
 
-**Total: 110 retos · 11/11 unidades implementadas.**
+**Total interno: 110 retos · 11/11 unidades implementadas.** La cobertura frente al brochure oficial, incluidos los temas incompletos, se documenta en el [mapa curricular](docs/curriculo.md).
 
 ## Instalación por sistema operativo
 
@@ -166,13 +168,13 @@ lab-linux/
 │   ├── ii/                 # Paquetes
 │   ├── iii/                # Scripting
 │   ├── iv/                 # Usuarios
-│   ├── v/                  # Procesos
+│   ├── v/                  # Procesos y servicios
 │   ├── vi/                 # Almacenamiento
 │   ├── vii/                # Hardening
-│   ├── viii/               # Docker
+│   ├── viii/               # Docker (complementaria)
 │   ├── ix/                 # Nginx
-│   ├── x/                  # SSL
-│   └── xi/                 # Docker Compose
+│   ├── x/                  # TLS/SSL (complementaria)
+│   └── xi/                 # Respaldo de archivos (complementaria)
 ├── propuesta-pedagogica.md # Documento del curso
 └── README.md               # Este archivo
 ```
