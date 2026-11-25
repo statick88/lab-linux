@@ -12,13 +12,13 @@ son materiales públicos de este repositorio.
 | III — Shell, FHS y permisos | **Implementado en parte:** [III](../units/iii/) valida scripts, `read`, condicionales, bucles, funciones, arrays, argumentos, redirección y errores; [I](../units/i/) aporta FHS y `chmod 755`. | Faltan una práctica integrada de FHS/permisos y alcance de administración. Evidencia: `units/iii/test.sh` verifica artefactos del estudiante; contenedor del lab. |
 | IV — Usuarios | **Implementado en parte:** [IV](../units/iv/) valida alta/baja, grupos, contraseña, shell, home, propiedad y permisos. | No cubre políticas de cuentas, PAM ni SSH como administración de acceso. Evidencia: `units/iv/test.sh`; contenedor con privilegios del lab. |
 | V — Procesos | **Parcial:** [V](../units/v/) incluye `ps`, búsqueda, segundo plano, `kill`, CPU/memoria, cron y consulta de servicios. | Las comprobaciones de proceso/cron se generan durante la validación; no prueban siempre una acción previa del estudiante. Evidencia: `units/v/test.sh`; contenedor. |
-| VI — Redes y almacenamiento | **Parcial:** [VI](../units/vi/) cubre bloques, particiones, imagen ext4, montaje, `df` y `du`. | Falta red; también LVM y administración de discos reales. Evidencia: `units/vi/test.sh`; VM desechable con dispositivos de prueba (no host productivo). |
+| VI — Redes y almacenamiento | [Práctica de redes](practicas/06-redes.md) con datos sintéticos de interfaz, rutas, DNS y firewall; [VI interna](../units/vi/) cubre almacenamiento básico. | La guía evalúa un diagnóstico offline; todavía faltan operación real de redes y una práctica de LVM. |
 | VII — Hardening | **Parcial:** [VII](../units/vii/) revisa UID 0, permisos críticos, sudoers, puertos, firewall, SSH, accesos y SUID. | Predomina la inspección; faltan configuración endurecida, auditoría y remediación verificable. Evidencia: `units/vii/test.sh`; VM aislada. |
-| VIII — DHCP | **Sin equivalente.** | No hay reto DHCP ni topología servidor/cliente. Próximo bloque: dos VMs o red aislada, servicio DHCP y pruebas de concesión. |
-| IX — Apache | **Sin equivalente.** | [IX](../units/ix/) es Nginx, no Apache. Próximo bloque: VM/contenedor con Apache, virtual host, logs y prueba HTTP. |
-| X — Nginx y Apache | **Parcial:** [IX](../units/ix/) implementa Nginx (sitio, host virtual, logs, prueba/recarga/parada); Apache falta. | Evidencia: `units/ix/setup.sh` y `test.sh`; contenedor para Nginx y VM/puertos aislados para comparación con Apache. |
-| XI — MariaDB | **Sin equivalente.** | [XI](../units/xi/) es respaldo de archivos con `tar`, `rsync` y checksums; no instala, consulta ni respalda MariaDB. Evidencia: `units/xi/setup.sh` y `test.sh`; futuro entorno MariaDB aislado. |
-| XII — Rescate/proyecto | **Sin equivalente.** | No hay unidad XII ni escenario integrador de rescate. Próximo bloque: VM recuperable con fallo inyectado y rúbrica/proyecto. |
+| VIII — DHCP | [Práctica de ISC DHCP](practicas/08-dhcp.md): ámbito, opciones, reserva y concesión a partir de datos preparados. | Evidencia escrita offline; no acredita operación de un servidor ni emite tráfico DHCP. |
+| IX — Apache | [Práctica de Apache](practicas/09-apache.md): virtual host, política de directorios, módulos y registros. | Validación y evidencia HTTP en loopback dentro de una VM desechable; fuera del evaluador interactivo. |
+| X — Nginx y Apache | [Práctica del proxy inverso](practicas/10-nginx-apache.md) hacia Apache; [IX interna](../units/ix/) contiene retos de Nginx. | Evidencia: respuesta HTTP y registro de Nginx y Apache en la misma VM aislada; la integración no tiene evaluación automática. |
+| XI — MariaDB | [Práctica de MariaDB](practicas/11-mariadb.md): mínimo privilegio, datos sintéticos, copia, restauración y análisis de consultas. | Evidencia: permisos, datos restaurados y salida de `EXPLAIN` en entorno aislado. [XI interna](../units/xi/) es respaldo de archivos, no una práctica de MariaDB. |
+| XII — Rescate/proyecto | [Práctica de rescate y proyecto](practicas/12-rescate-proyecto.md): diagnóstico offline, informe de evidencias y rúbrica de 100 puntos. | VM desechable, instantánea e imagen de prueba sin montar; evidencia de `fsck` en solo lectura, registros y observabilidad de un proceso propio. No forma parte del evaluador interactivo. |
 
 ## Complementos internos, no numeración del brochure
 
@@ -37,6 +37,4 @@ explica que el Compose es privilegiado y expone el socket Docker: úsese solo un
 específica y desechable. Los enlaces a `setup.sh` describen el entorno creado y los
 `test.sh` la comprobación actual; no se ejecutaron servicios en vivo para este mapa.
 
-**S1–S2 cubiertos:** inventario explícito de equivalencias, brechas, evidencia y entorno.
-**Siguientes brechas por preparar:** VIII DHCP, IX Apache, Apache en X, XI MariaDB y XII
-rescate/proyecto; después, profundizar I, III, IV, VI y VII sin renumerar complementos.
+Las guías del brochure complementan los retos interactivos y tienen entregables y rúbricas propios. No cuentan para el progreso automático de los once IDs internos.
