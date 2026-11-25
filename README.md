@@ -2,6 +2,10 @@
 
 11 unidades progresivas · 110 retos prácticos · evaluación automática · frase secreta oculta. Todo corre en Docker.
 
+> **⚠️ ADVERTENCIA DE SEGURIDAD — usa una VM dedicada y desechable.** No ejecutes este laboratorio en un equipo con datos del host, montajes del host o un demonio Docker compartido. El Compose publicado ejecuta el contenedor con privilegios y monta `/var/run/docker.sock`: no es un sandbox ni Docker-in-Docker. Antes de iniciar, asegúrate de que la VM no contenga datos que debas conservar y que su daemon Docker no sea usado por otras cargas.
+
+> **Reto VIII.10:** el ejercicio de decisión de limpieza usa un inventario sintético y un plan local; no se conecta al daemon Docker ni elimina recursos.
+
 ## Quick path
 
 ```bash
@@ -140,7 +144,7 @@ docker compose exec lab-linux bash
 | Contenedor no inicia | `docker compose logs lab-linux` → `docker compose build --no-cache` |
 | Comandos no funcionan | Verificar que estás dentro: `docker compose exec lab-linux bash` |
 | Pruebas fallan | directorio debe ser `~/laboratorio`, nombres exactos |
-| Docker-in-Docker falla | Verificar `privileged: true` y `/var/run/docker.sock` montado |
+| El acceso al daemon Docker falla | Verificar que Docker esté activo y que el socket `/var/run/docker.sock` sea accesible en la VM dedicada |
 
 ## Arquitectura
 

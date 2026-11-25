@@ -1,6 +1,8 @@
 # Unit VIII — Docker Containers
 ## Evaluación: 2 preguntas prácticas
 
+> **Alcance del reto 10:** es una decisión de limpieza sintética. Revisa `~/laboratorio/docker/reto10_inventario.txt` y crea `reto10_plan.txt` seleccionando solo los ID con `propietario=unidad-viii` y `desechable=si`. Cada entrada debe tener el formato `eliminar id=<ID>`. `bash reto10.sh` y el evaluador son de solo lectura: no contactan Docker ni realizan limpieza. No uses comandos globales como `docker system prune`.
+
 ---
 
 ### Pregunta 1 — Ejecución de contenedor y validación de salida

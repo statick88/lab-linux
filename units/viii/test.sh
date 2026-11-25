@@ -82,11 +82,20 @@ EOF
 }
 
 reto10() {
-    # Verificar que puede limpiar recursos
-    docker ps -aq 2>/dev/null | xargs docker rm -f 2>/dev/null || true
-    docker volume ls -q 2>/dev/null | xargs docker volume rm 2>/dev/null || true
-    output=$(docker ps -a 2>/dev/null)
-    [ -n "$output" ]
+    # Validación de solo lectura: una decisión no debe tocar Docker ni asumir ausencias.
+    local inventory="$HOME/laboratorio/docker/reto10_inventario.txt"
+    local plan="$HOME/laboratorio/docker/reto10_plan.txt"
+    local expected_inventory='id=practica-contenedor-viii tipo=contenedor nombre=shared-cache propietario=unidad-viii desechable=si
+id=practica-volumen-viii tipo=volumen nombre=datos-viii propietario=unidad-viii desechable=si
+id=produccion-contenedor tipo=contenedor nombre=shared-cache propietario=cliente desechable=no
+id=produccion-volumen tipo=volumen nombre=datos-clientes propietario=cliente desechable=no'
+    local expected_plan='eliminar id=practica-contenedor-viii
+eliminar id=practica-volumen-viii'
+
+    [ -f "$inventory" ] || return 1
+    [ "$(cat "$inventory")" = "$expected_inventory" ] || return 1
+    [ -f "$plan" ] || return 1
+    [ "$(sort "$plan")" = "$expected_plan" ]
 }
 
 validators=(reto1 reto2 reto3 reto4 reto5 reto6 reto7 reto8 reto9 reto10)
@@ -236,15 +245,16 @@ reto9_info() {
 
 reto10_info() {
     separador
-    echo -e "${CYAN}Reto 10: Limpiar recursos${NC}"
+    echo -e "${CYAN}Reto 10: Planificar una limpieza segura${NC}"
     echo ""
-    echo "Limpia todos los recursos Docker utilizados: contenedores, imagenes y volumenes."
-    echo "Demuestra que puedes liberar espacio en tu sistema."
+    echo "Revisa ~/laboratorio/docker/reto10_inventario.txt y crea:"
+    echo "  ~/laboratorio/docker/reto10_plan.txt"
     echo ""
-    echo "Comandos utiles:"
-    echo "  docker ps -aq | xargs docker rm -f    -- Elimina todos los contenedores"
-    echo "  docker images -q | xargs docker rmi    -- Elimina todas las imagenes"
-    echo "  docker volume ls -q | xargs docker volume rm  -- Elimina todos los volumenes"
-    echo "  docker system prune -a                 -- Limpia todo de una vez"
+    echo "El plan solo puede seleccionar recursos con propietario=unidad-viii"
+    echo "y desechable=si. Cada línea debe usar el formato eliminar id=<ID>."
+    echo "Usa los ID, no el nombre: shared-cache también pertenece a un cliente."
+    echo "Ejecuta bash reto10.sh para revisar tu plan localmente."
+    echo ""
+    echo "El reto no llama Docker ni elimina recursos. No uses prune ni comandos globales."
     separador
 }

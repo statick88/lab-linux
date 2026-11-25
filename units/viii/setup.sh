@@ -12,7 +12,7 @@ export TOTAL_RETOS=10
 banner_unidad "$UNIT_NUM" "Contenedores Docker"
 
 echo -e "${CYAN}Esta unidad ensena a gestionar contenedores Docker.${RESET}"
-echo -e "${AMARILLO}Usamos Docker-in-Docker (DinD) para experimentar.${RESET}"
+echo -e "${AMARILLO}Docker se comunica con el demonio disponible en este entorno; usa solo recursos del laboratorio.${RESET}"
 echo -e "${AMARILLO}Completarás 10 retos progresivos.${RESET}\n"
 
 mkdir -p "$HOME/laboratorio/docker"
@@ -107,16 +107,45 @@ docker run --rm mi_imagen
 EOF
 chmod +x reto9.sh
 
-# Reto 10: Limpiar recursos
+# Reto 10: decidir una limpieza segura sin tocar el demonio Docker.
+# El inventario incluye un nombre compartido para demostrar que el nombre no prueba propiedad.
+cat > reto10_inventario.txt << 'EOF'
+id=practica-contenedor-viii tipo=contenedor nombre=shared-cache propietario=unidad-viii desechable=si
+id=practica-volumen-viii tipo=volumen nombre=datos-viii propietario=unidad-viii desechable=si
+id=produccion-contenedor tipo=contenedor nombre=shared-cache propietario=cliente desechable=no
+id=produccion-volumen tipo=volumen nombre=datos-clientes propietario=cliente desechable=no
+EOF
+
 cat > reto10.sh << 'EOF'
 #!/bin/bash
-# Reto 10: Limpiar contenedores, imagenes y volumenes detenidos
-docker stop $(docker ps -q) 2>/dev/null || true
-docker rm $(docker ps -aq) 2>/dev/null || true
-docker volume rm $(docker volume ls -q) 2>/dev/null || true
-docker network rm mi_red 2>/dev/null || true
-echo "Recursos limpiados"
-docker ps -a
+# Reto 10: validar de forma local un plan de limpieza, sin ejecutar la limpieza.
+set -e
+
+INVENTORY="$HOME/laboratorio/docker/reto10_inventario.txt"
+PLAN="$HOME/laboratorio/docker/reto10_plan.txt"
+EXPECTED_INVENTORY='id=practica-contenedor-viii tipo=contenedor nombre=shared-cache propietario=unidad-viii desechable=si
+id=practica-volumen-viii tipo=volumen nombre=datos-viii propietario=unidad-viii desechable=si
+id=produccion-contenedor tipo=contenedor nombre=shared-cache propietario=cliente desechable=no
+id=produccion-volumen tipo=volumen nombre=datos-clientes propietario=cliente desechable=no'
+EXPECTED_PLAN='eliminar id=practica-contenedor-viii
+eliminar id=practica-volumen-viii'
+
+if [ ! -f "$INVENTORY" ] || [ "$(cat "$INVENTORY")" != "$EXPECTED_INVENTORY" ]; then
+    echo "Inventario rechazado: usa el fixture canónico generado por el reto." >&2
+    exit 1
+fi
+
+if [ ! -f "$PLAN" ]; then
+    echo "Crea $PLAN con los ID propios y desechables que seleccionaste." >&2
+    exit 1
+fi
+
+if [ "$(sort "$PLAN")" != "$EXPECTED_PLAN" ]; then
+    echo "Plan rechazado: selecciona exactamente los recursos propios y desechables." >&2
+    exit 1
+fi
+
+echo "Plan de limpieza seguro: solo recursos propios y desechables seleccionados."
 EOF
 chmod +x reto10.sh
 

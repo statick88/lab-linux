@@ -65,6 +65,23 @@ cat << 'EOF'
   docker volume ls                # Listar volumenes
   docker run -v vol:/ruta img     # Montar volumen
 
+🧹 RETO 10: DECISIÓN DE LIMPIEZA CON ALCANCE SEGURO
+════════════════════════════════════════════════════
+
+  Este reto es un ejercicio sintético de decisión: no conecta con Docker
+  ni elimina recursos reales. Revisa reto10_inventario.txt y crea
+  reto10_plan.txt seleccionando únicamente los ID con:
+
+  • propietario=unidad-viii
+  • desechable=si
+
+  Cada línea del plan debe usar exactamente el formato: eliminar id=<ID>
+
+  El nombre shared-cache aparece también en un recurso de cliente: el
+  nombre no demuestra propiedad. Ejecuta bash reto10.sh para comprobar el
+  plan y usa evaluar para la validación de solo lectura. No uses prune,
+  filtros globales ni comandos que afecten recursos ajenos.
+
 🎯 RETOS
 ══════════
 

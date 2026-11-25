@@ -1,5 +1,7 @@
 # Preguntas de Evaluación - Unidad VIII: Docker
 
+> **Nota de seguridad para el reto 10:** es un ejercicio sintético de decisión, no una limpieza del daemon. El inventario contiene recursos propios, desechables y ajenos; el plan debe seleccionar únicamente los ID propios y desechables. No se evalúa ni se autoriza `docker system prune` ni ninguna eliminación global.
+
 ## Pregunta 1: Verificación de imagen personalizada en pipeline de CI/CD
 
 **Escenario**:

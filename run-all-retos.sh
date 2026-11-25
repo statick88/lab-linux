@@ -98,18 +98,33 @@ for unit in "${UNITS[@]}"; do
             setup_for_unit_reto "$unit" "$i" >/dev/null 2>&1
         fi
         
-        # SPECIAL CASE: Unit VIII reto10 (Docker cleanup) destroys ALL containers
-        # including this one via the host Docker socket. We mock the result.
-        skip_validator=false
+        # Unit VIII reto10 has a public synthetic workflow. Setup is a hard
+        # gate: never reuse a stale helper, inventory, or plan after it fails.
         if [ "$unit" = "viii" ] && [ "$i" -eq 10 ]; then
-            skip_validator=true
-            status="PASS"
-            notes="skipped_destructive_cleanup"
-        fi
-        
-        # Run the validator
-        if [ "$skip_validator" = true ]; then
-            pass=$((pass+1))
+            if ! bash "${SCRIPT_DIR}/units/viii/setup.sh" >/dev/null 2>&1; then
+                status="FAIL"
+                notes="synthetic_setup_failed"
+                fail=$((fail+1))
+            elif ! printf '%s\n' \
+                'eliminar id=practica-contenedor-viii' \
+                'eliminar id=practica-volumen-viii' > "$HOME/laboratorio/docker/reto10_plan.txt"; then
+                status="FAIL"
+                notes="synthetic_plan_write_failed"
+                fail=$((fail+1))
+            elif ! bash "$HOME/laboratorio/docker/reto10.sh" >/dev/null 2>&1; then
+                status="FAIL"
+                notes="synthetic_helper_failed"
+                fail=$((fail+1))
+            elif ! reto10 >/dev/null 2>&1; then
+                status="FAIL"
+                notes="synthetic_validation_failed"
+                fail=$((fail+1))
+            else
+                status="PASS"
+                notes="synthetic_workflow_ok"
+                pass=$((pass+1))
+            fi
+        # Run every other validator directly.
         elif reto$i >/dev/null 2>&1; then
             status="PASS"
             notes="ok"
